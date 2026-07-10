@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>塔羅四元素核心意涵探索器 (1-10號與宮廷人物牌)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Cinzel & Noto Sans TC -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for symbols -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        mystical: ['Cinzel', 'Noto Sans TC', 'serif'],
+                        sans: ['Noto Sans TC', 'sans-serif'],
+                    },
+                    colors: {
+                        mystic: {
+                            900: '#09090e',
+                            800: '#121225',
+                            700: '#1c1b35',
+                            600: '#2a284a',
+                            gold: '#c5a059',
+                            goldLight: '#e6c887',
+                            wands: '#f97316',
+                            cups: '#3b82f6',
+                            swords: '#a855f7',
+                            pentacles: '#10b981'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #09090e;
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(26, 21, 44, 0.3) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(18, 30, 49, 0.3) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c5a059;
+            border-radius: 4px;
+        }
+        /* Tarot card style glow */
+        .tarot-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .tarot-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        .wands-glow:hover { border-color: #f97316; box-shadow: 0 0 20px rgba(249, 115, 22, 0.2); }
+        .cups-glow:hover { border-color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
+        .swords-glow:hover { border-color: #a855f7; box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
+        .pentacles-glow:hover { border-color: #10b981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+    </style>
+</head>
+<body class="font-sans text-gray-200 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <header class="text-center mb-10 relative">
+            <div class="inline-block border-b border-mystic-gold pb-4 mb-2">
+                <span class="text-xs uppercase tracking-[0.3em] text-mystic-goldLight font-mystical">The Minor Arcana Matrix</span>
+                <h1 class="text-3xl sm:text-4xl font-bold font-mystical text-transparent bg-clip-text bg-gradient-to-r from-mystic-goldLight via-yellow-100 to-mystic-gold mt-1">
+                    塔羅四元素對照探索器
+                </h1>
+            </div>
+            <p class="text-sm text-gray-400 max-w-2xl mx-auto mt-2">
+                完美融合「數字學演變」與「宮廷人際心智」。點選下方類別與牌組，並行分析火、水、風、土四元素的核心轉化、正位與逆位奧秘。
+            </p>
+        </header>
+
+        <!-- Main Controller Panel -->
+        <div class="bg-mystic-800 border border-mystic-gold/20 rounded-2xl p-6 mb-8 shadow-xl backdrop-blur-md">
+            
+            <!-- Category Tabs: Numbers vs Court -->
+            <div class="flex justify-center space-x-4 mb-6">
+                <button id="tab-numbers" onclick="switchCategory('numbers')" class="px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-mystic-gold/40 bg-mystic-gold/10 text-mystic-gold font-bold shadow-[0_0_15px_rgba(197,160,89,0.15)]">
+                    <i class="fa-solid fa-arrow-1-9 mr-2"></i> 數字牌 (1 - 10 號)
+                </button>
+                <button id="tab-court" onclick="switchCategory('court')" class="px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700">
+                    <i class="fa-solid fa-chess-queen mr-2"></i> 宮廷人物牌 (侍從 - 國王)
+                </button>
+            </div>
+
+            <!-- Sub-Selectors -->
+            <div>
+                <!-- Numbers Selectors -->
+                <div id="selector-numbers" class="flex flex-wrap justify-center gap-2">
+                    <!-- Dynamic Buttons for Numbers 1-10 will go here via JS -->
+                </div>
+
+                <!-- Court Card Selectors (Hidden by default) -->
+                <div id="selector-court" class="hidden flex flex-wrap justify-center gap-3">
+                    <!-- Dynamic Buttons for Court Cards will go here via JS -->
+                </div>
+            </div>
+
+            <!-- Description Banner for Current Selection -->
+            <div class="mt-6 pt-4 border-t border-mystic-700 text-center">
+                <span id="current-badge" class="bg-mystic-gold/10 border border-mystic-gold/30 text-mystic-goldLight text-xs px-3 py-1 rounded-full uppercase tracking-wider font-mystical"></span>
+                <p id="current-desc" class="text-base sm:text-lg text-gray-300 mt-2 font-light italic"></p>
+            </div>
+        </div>
+
+        <!-- View Swapper Control -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-xl font-mystical font-semibold text-mystic-goldLight">
+                <i class="fa-solid fa-circle-nodes mr-2 text-mystic-gold"></i>能量矩陣對照
+            </h2>
+            <div class="bg-mystic-900 border border-mystic-700 p-1 rounded-lg inline-flex">
+                <button onclick="setViewMode('cards')" id="btn-view-cards" class="px-4 py-1.5 rounded text-xs sm:text-sm transition bg-mystic-gold text-mystic-900 font-semibold shadow">
+                    <i class="fa-solid fa-id-card mr-1"></i> 卡牌對比
+                </button>
+                <button onclick="setViewMode('table')" id="btn-view-table" class="px-4 py-1.5 rounded text-xs sm:text-sm transition text-gray-400 hover:text-gray-200">
+                    <i class="fa-solid fa-table-list mr-1"></i> 矩陣總表
+                </button>
+            </div>
+        </div>
+
+        <!-- View 1: Card Grid View -->
+        <div id="view-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            <!-- 4 Element Cards dynamically populated -->
+            <!-- Wands (Fire) -->
+            <div id="card-wands" class="tarot-card wands-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between">
+                <!-- Inner populated by JS -->
+            </div>
+            <!-- Cups (Water) -->
+            <div id="card-cups" class="tarot-card cups-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between">
+                <!-- Inner populated by JS -->
+            </div>
+            <!-- Swords (Air) -->
+            <div id="card-swords" class="tarot-card swords-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between">
+                <!-- Inner populated by JS -->
+            </div>
+            <!-- Pentacles (Earth) -->
+            <div id="card-pentacles" class="tarot-card pentacles-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between">
+                <!-- Inner populated by JS -->
+            </div>
+        </div>
+
+        <!-- View 2: Detailed Matrix Table View (Hidden by default) -->
+        <div id="view-table" class="hidden overflow-x-auto bg-mystic-800 border border-mystic-gold/20 rounded-2xl shadow-xl">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-mystic-900 border-b border-mystic-gold/30">
+                        <th class="p-4 font-mystical text-mystic-gold text-sm sm:text-base w-1/5 min-w-[150px]">牌組類型</th>
+                        <th class="p-4 border-l border-mystic-700/50 text-mystic-wands font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-fire mr-1"></i> 權杖 (火元素 🔥)</th>
+                        <th class="p-4 border-l border-mystic-700/50 text-mystic-cups font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-droplet mr-1"></i> 聖杯 (水元素 💧)</th>
+                        <th class="p-4 border-l border-mystic-700/50 text-mystic-swords font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 寶劍 (風元素 💨)</th>
+                        <th class="p-4 border-l border-mystic-700/50 text-mystic-pentacles font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-clover mr-1"></i> 錢幣 (土元素 🌱)</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Populated dynamically via JS to list everything perfectly -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Core Mystical Teachings footer -->
+        <div class="mt-12 bg-mystic-800/40 border border-mystic-gold/10 rounded-2xl p-6 text-center max-w-4xl mx-auto backdrop-blur-sm">
+            <h3 class="font-mystical text-mystic-goldLight text-lg mb-2">塔羅探索提示</h3>
+            <p class="text-sm text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                <span class="text-mystic-wands">火 (行動力)</span>、<span class="text-mystic-cups">水 (情感感應)</span>、<span class="text-mystic-swords">風 (心智抉擇)</span> 與 <span class="text-mystic-pentacles">土 (物質基礎)</span> 是建構小阿爾克那的基本。正位代表該能量順暢運作、或得到健康的展現；逆位則指出能量的過度累積、扭曲、延遲或需要內省的轉化契機。請在解讀時，抱持唯識與能量流動的宏觀視角。
+            </p>
+        </div>
+    </div>
+
+    <!-- TAROT DATA STRUCTURE IN JAVASCRIPT -->
+    <script>
+        const tarotData = {
+            numbers: {
+                '1': {
+                    title: "1 號 (Ace)",
+                    desc: "代表純粹能量的全新起點、天賜之物與最初的意志萌芽。",
+                    wands: { 
+                        name: "權杖一", 
+                        core: "熱情與創造性直覺的全面爆發", 
+                        upright: "充滿幹勁與冒險心、新計畫啟動、直覺指引、強烈的意志力與生命力。", 
+                        reversed: "動力消退、計畫難以落實、熱情冷卻、缺乏前行的意志力、延誤或夭折。" 
+                    },
+                    cups: { 
+                        name: "聖杯一", 
+                        core: "深層情感、直覺與靈性之愛的灌溉", 
+                        upright: "新戀情或深刻友誼的開端、直覺力大增、心靈與情感滿溢、自我接納與療癒。", 
+                        reversed: "情感壓抑、情緒混亂失控、心碎、單戀受挫、虛假的情感交流。" 
+                    },
+                    swords: { 
+                        name: "寶劍一", 
+                        core: "突破重圍的理智覺醒與決斷意志", 
+                        upright: "思想極度清明、新觀點誕生、突破混亂與欺瞞、揭示真相的巨大力量與決策力。", 
+                        reversed: "思緒嚴重混亂、判斷錯誤、流言蜚語中傷、計畫受阻、權力或智慧的濫用。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣一", 
+                        core: "物質財富、實質資源與穩固基石的顯化", 
+                        upright: "新的財政機會、新工作或項目起跑、穩健的物質基礎、得到豐盛實質回報的承諾。", 
+                        reversed: "財務機會流失、基礎不穩固、過度追求物慾、短視近利、投資不當面臨損耗。" 
+                    }
+                },
+                '2': {
+                    title: "2 號 (Two)",
+                    desc: "代表面對抉擇時的平衡角力、規劃構思與內外交戰。",
+                    wands: { 
+                        name: "權杖二", 
+                        core: "立足於現有成就並籌謀遠景的雄心", 
+                        upright: "制定長遠計畫、面臨發展瓶頸需要決策、渴望向海外擴張、平衡現有資源與新野心。", 
+                        reversed: "猶豫不決導致痛失良機、視野受限不敢冒險、計畫遭遇阻力、水土不服。" 
+                    },
+                    cups: { 
+                        name: "聖杯二", 
+                        core: "心靈契合、平等交流與親密和諧的結合", 
+                        upright: "真摯的和諧交流、戀人牌的迷你縮影、合作默契極佳、情感與心靈的平等契合。", 
+                        reversed: "人際關係或合作失衡、溝通障礙、情感隔閡、關係出現猜忌與破裂、不平等的承諾。" 
+                    },
+                    swords: { 
+                        name: "寶劍二", 
+                        core: "封閉心靈、拒絕做出選擇的脆弱平衡", 
+                        upright: "逃避做出決定、不願面對殘酷真相、刻意壓抑內心情感、陷入維持表面和平的僵局。", 
+                        reversed: "假象與僵局被強行打破、思維重新覺醒、被迫面對現實做出抉擇、混亂後的清晰。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣二", 
+                        core: "多工處理、動態周轉與生活平衡的藝術", 
+                        upright: "資金周轉靈活、多個項目同時運作、展現高超的適應力與平衡感、娛樂與工作的協調。", 
+                        reversed: "生活失衡、財務周轉不靈顧此失彼、缺乏規劃導致混亂、寅吃卯糧、壓力過大。" 
+                    }
+                },
+                '3': {
+                    title: "3 號 (Three)",
+                    desc: "代表能量初步取得實質成果、團隊合作、向外擴張與顯化。",
+                    wands: { 
+                        name: "權杖三", 
+                        core: "行動擴張、遠景確立與揚帆遠航的自信", 
+                        upright: "取得階段性成果、向外開拓市場或新領域、展現領袖魅力與高瞻遠矚的視野。", 
+                        reversed: "計畫受挫推遲、海外計畫落空、內部合作出現分歧、缺乏長遠眼光而局限發展。" 
+                    },
+                    cups: { 
+                        name: "聖杯三", 
+                        core: "情感分享、豐盛社群與舉杯歡慶的喜悅", 
+                        upright: "聚會歡樂、人際社群的支持、達成目標的慶祝、享受豐盛、收穫深厚友誼。", 
+                        reversed: "過度放縱生活、小圈圈造成排擠、三角情感糾紛、社交流於形式、精力過度耗散。" 
+                    },
+                    swords: { 
+                        name: "寶劍三", 
+                        core: "言語刺傷、關係破裂與痛徹心扉的心碎", 
+                        upright: "情感遭遇重創、經歷心碎、受到流言或言語的實質傷害、不得不接受悲傷洗禮。", 
+                        reversed: "傷口逐漸進入療癒階段、釋放壓抑已久的悲痛、心靈重構、拒絕正視傷害而逃避。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣三", 
+                        core: "專業分工、共同構築宏偉藍圖的團隊合作", 
+                        upright: "優秀的團隊合作、專業技能獲得權威肯定、按部就班建立宏偉基礎、實力展現。", 
+                        reversed: "缺乏合作默契、工作態度敷衍專業度不足、各自為政、溝通不良導致工程延期。" 
+                    }
+                },
+                '4': {
+                    title: "4 號 (Four)",
+                    desc: "代表秩序建立後的安全、穩固、但也可能伴隨著保守與停滯。",
+                    wands: { 
+                        name: "權杖四", 
+                        core: "建立安穩根基與共享成功的階段慶賀", 
+                        upright: "家庭或人際結構穩固、共享階段成功的慶典、充滿和諧平安、獲得安定可靠的安全感。", 
+                        reversed: "安定感暫時受到動搖、慶典儀式延遲、繁榮後的平淡與缺乏挑戰、家庭內部出現小摩擦。" 
+                    },
+                    cups: { 
+                        name: "聖杯四", 
+                        core: "情感倦怠、冷漠拒絕與自我封闭的省思", 
+                        upright: "情感或精神疲憊、對周遭一切感到冷漠、自我封閉、忽視了宇宙送來的最新情感機會。", 
+                        reversed: "精神重新覺醒、走出自我封閉的牢籠、學會主動接受機會、生活迎來全新轉機。" 
+                    },
+                    swords: { 
+                        name: "寶劍四", 
+                        core: "思維與肉體強制關機的休養、沉思與暫停", 
+                        upright: "暫停一切鬥爭、休養生息以積蓄力量、遠離外界壓力、進行深度冥想、思索未來方針。", 
+                        reversed: "不得不重新面對混亂現實、被迫展開行動、長期失眠或精疲力竭、缺乏足夠休息。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣四", 
+                        core: "緊抓資源不放的保守作風與守財焦慮", 
+                        upright: "緊抓金錢、權力或現狀不放、拒絕任何變革、守財吝嗇、出於恐懼極度渴求物質安全感。", 
+                        reversed: "被迫放手、財務面臨破損或耗費、學會打破自私分享資源、過度揮霍、投資失控。" 
+                    }
+                },
+                '5': {
+                    title: "5 號 (Five)",
+                    desc: "代表生命旅程中的衝突、混亂、失落與重大轉折點。",
+                    wands: { 
+                        name: "權杖五", 
+                        core: "多方意見衝突與內耗激烈的混亂競爭", 
+                        upright: "內部意見不一、缺乏協調的混亂競爭、理念衝突、團隊鬥爭、精力的無意義耗散。", 
+                        reversed: "衝突逐漸平息、各方達成基本共識、逃避應有的競爭、惡性競爭宣告終結。" 
+                    },
+                    cups: { 
+                        name: "聖杯五", 
+                        core: "沉溺於失去的悲傷與內在失落自我折磨", 
+                        upright: "深陷悲痛與失落、自我哀悼、只盯著打翻的杯子，卻忽略了身後尚存的溫暖支持。", 
+                        reversed: "逐漸走出悲傷陰霾、學會接受現實並重啟生活、接受他人安慰、將焦點轉移至擁有的事物。" 
+                    },
+                    swords: { 
+                        name: "寶劍五", 
+                        core: "手段卑劣與兩敗俱傷的殘酷心智爭鬥", 
+                        upright: "贏了面子卻輸了關係、自私自利的短暫勝利、不擇手段排除異己、敵意與陰謀肆虐。", 
+                        reversed: "兩敗俱傷的結局、看清陰謀不願再糾纏、放下執念止損退出、混亂後代價慘烈。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣五", 
+                        core: "經濟赤貧、身心交瘁與被社會孤立的考驗", 
+                        upright: "面臨財務嚴重危機、失業或重大疾病、身心交瘁、主觀感到孤立無援、被群體排斥。", 
+                        reversed: "困境逐漸迎來轉機、尋求到社會援助或新工作、健康狀況好轉、重獲安全感。" 
+                    }
+                },
+                '6': {
+                    title: "6 號 (Six)",
+                    desc: "代表風暴過後的和諧平靜、療癒發生、重獲認同與資源回饋。",
+                    wands: { 
+                        name: "權杖六", 
+                        core: "得勝歸來、獲得群眾認可與榮耀光芒", 
+                        upright: "凱旋歸來、成就獲得大眾高度認同與推崇、自信心爆棚、順利克服險阻並主導大局。", 
+                        reversed: "期待落空、虛榮心受挫、光芒與功勞被奪、承諾流於表面、成功曇花一現。" 
+                    },
+                    cups: { 
+                        name: "聖杯六", 
+                        core: "童年無邪的溫馨懷舊與無私照料餽贈", 
+                        upright: "懷念往昔純真、獲得或給予無私的照顧與餽贈、充滿溫情、人際關係享有高度安全感。", 
+                        reversed: "過度沉溺過去而抗拒長大、童年陰影未解、過度美化回憶、環境劇烈變遷迫使面對現實。" 
+                    },
+                    swords: { 
+                        name: "寶劍六", 
+                        core: "漸入佳境與在悲傷中默默轉移陣地的療癒", 
+                        upright: "渡過最艱難時刻、狀況逐漸明朗好轉、在平靜中承擔痛苦前行、悄然抽離是非之地。", 
+                        reversed: "陷入泥淖難以自拔、問題無法徹底解決、抗拒做出必要改變、中途因突發狀況受阻。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣六", 
+                        core: "資源分配公平與等價交換的和諧社會契約", 
+                        upright: "慈善施予、等價交換秩序和諧、獲得實質資金支持、主雇關係健全、互利共贏。", 
+                        reversed: "人際或合作關係極度不平等、虛假慷慨暗藏勒索、債務危機、不公平的利益分配。" 
+                    }
+                },
+                '7': {
+                    title: "7 號 (Seven)",
+                    desc: "代表面臨挑戰時的策略權衡、防禦意志與心智修煉。",
+                    wands: { 
+                        name: "權杖七", 
+                        core: "以寡敵眾、堅守個人立場的頑強抗爭", 
+                        upright: "面臨外在多重挑戰仍頑強守護成果、堅守信念不退讓、在重壓之下依然維持優勢。", 
+                        reversed: "精疲力竭無力抵抗、被迫妥協放棄、防線全面崩潰、自信動搖、準備退出戰局。" 
+                    },
+                    cups: { 
+                        name: "聖杯七", 
+                        core: "漫無邊際的欲望幻象與不切實際的白日夢", 
+                        upright: "面對滿天神佛的幻象與誘惑、選擇過多導致眼花繚亂、迷失自我、不切實際的幻想。", 
+                        reversed: "看透幻象本質、破除迷惘與謊言、回歸務實客觀、做出具體且正確的實際抉擇。" 
+                    },
+                    swords: { 
+                        name: "寶劍七", 
+                        core: "權謀計策與試圖不走正道的單打獨鬥", 
+                        upright: "走捷徑或以非正規方式帶走成果、瞞天過海、單打獨鬥、運用權謀策略應對困境。", 
+                        reversed: "謊言被無情拆穿、良心受到強烈譴責、作弊手段失效、重新回歸正軌、策略全盤落空。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣七", 
+                        core: "耐心評估目前成果並思考長遠規劃的沉思", 
+                        upright: "冷靜評估階段收成、耐心等待最佳成熟時機、思考未來的長遠投資方向與變革策略。", 
+                        reversed: "缺乏耐心焦躁冒進、投資不當面臨虧損、半途而廢、勞而無功、收成不符預期而抱怨。" 
+                    }
+                },
+                '8': {
+                    title: "8 號 (Eight)",
+                    desc: "代表能量與速度的專注推進、毅然決策與自省重組。",
+                    wands: { 
+                        name: "權杖八", 
+                        core: "高效率、訊息光速流動與目標箭在弦上", 
+                        upright: "快速進展、行程繁忙、旅行、訊息光速傳播、各項計畫順利而流暢地落地執行。", 
+                        reversed: "計畫遭遇延誤與卡關、前進方向偏離、衝動壞事、溝通嚴重混亂、突如其來的阻礙阻攔。" 
+                    },
+                    cups: { 
+                        name: "聖杯八", 
+                        core: "追求更高精神高度而毅然放棄成就的轉身", 
+                        upright: "主動轉身離開已經圓滿的物質成就、不畏孤單追尋更高層次的精神昇華與內在召喚。", 
+                        reversed: "因害怕未知恐懼放手、困守在不健康的關係中、流連虛假繁榮、拒絕內在心靈成長。" 
+                    },
+                    swords: { 
+                        name: "寶劍八", 
+                        core: "思想作繭自縛、主觀盲目恐懼的心靈囚牢", 
+                        upright: "深陷思想枷鎖、主觀認定無路可走、被自己製造的恐懼籠罩、拒絕認清客觀事實。", 
+                        reversed: "思想開竅、找到解鎖方法、看清客觀真實出路、重獲自由、擺脫自我設限的思維。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣八", 
+                        core: "腳踏實地專注淬鍊技藝的匠人精神", 
+                        upright: "精益求精、日復一日沉浸在熱愛中磨練技能、腳踏實地積累實力、專注於細節。", 
+                        reversed: "粗製濫造、投機取巧、缺乏基本專業技能、工作產生強烈倦怠感、不務正業。" 
+                    }
+                },
+                '9': {
+                    title: "9 號 (Nine)",
+                    desc: "代表抵達個人階段性能量的最高頂峰、獨自一人面對世界。",
+                    wands: { 
+                        name: "權杖九", 
+                        core: "緊繃戒備與在最後防線前嚴陣以待的疲憊", 
+                        upright: "嚴陣以待防範未然、帶著舊傷堅守最後一道防線、即便極度疲憊依然展現驚人韌性。", 
+                        reversed: "防線潰不成軍、精疲力竭、風聲鶴唳過度多疑、缺乏自我防禦能力、拒絕承擔重壓。" 
+                    },
+                    cups: { 
+                        name: "聖杯九", 
+                        core: "物質感官與情感皆達到圓滿的「願望成真」", 
+                        upright: "美夢成真、物質與情感雙重富足、獨自享受人生成果、自豪且洋洋得意、願望實現。", 
+                        reversed: "過度沉溺感官享受、外在奢華內心空虛、自私冷漠引起反感、過度炫耀、不滿足現狀。" 
+                    },
+                    swords: { 
+                        name: "寶劍九", 
+                        core: "精神過度緊繃、焦慮失眠與噩夢連連的折磨", 
+                        upright: "精神遭受強烈折磨、過度焦慮引發嚴重失眠、被噩夢纏繞、對未發生之危機主觀放大恐懼。", 
+                        reversed: "逐漸從噩夢與焦慮中甦醒、正視內心恐懼、心理解套、發現事情真相並不如預期可怕。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣九", 
+                        core: "高雅自立、富足安適與享受豐收的貴婦花園", 
+                        upright: "財富豐沛穩固、高度自立與自信、掌握高雅的生活品質、優雅自足、與自然和諧共處。", 
+                        reversed: "金玉其外敗絮其中、虛榮奢靡、為追求物質依附於不健康的關係、財務潛藏重大危機。" 
+                    }
+                },
+                '10': {
+                    title: "10 號 (Ten)",
+                    desc: "代表能量達到頂點後的終極圓滿，但亦隨之帶來能量的過載或轉化。",
+                    wands: { 
+                        name: "權杖十", 
+                        core: "行動力與責任過度累積帶來的窒息重擔", 
+                        upright: "責任與壓力過載、咬牙硬撐已達肉體極限、精疲力竭、承擔過多不屬於自己的事務。", 
+                        reversed: "壓力釋放崩潰放手、拒絕無意義死撐、學會合理放權與尋求幫助、卸下包袱、解脫。" 
+                    },
+                    cups: { 
+                        name: "聖杯十", 
+                        core: "情感結合臻至化境的家庭和諧與終極幸福", 
+                        upright: "情感、家庭或社群生活達到終極和諧美滿、彼此信任、共度長久溫馨生活、愛的大團圓。", 
+                        reversed: "家庭關係失和、情感疏離、表面的假性親密與背後冷漠、人際合作出現嚴重不和睦。" 
+                    },
+                    swords: { 
+                        name: "寶劍十", 
+                        core: "思想鬥爭臻至極致的慘痛結束與黎明初現", 
+                        upright: "萬箭穿心慘痛結束、精疲力竭跌入谷底、事物走向不可挽回的終點、置之死地而後生。", 
+                        reversed: "死而復生、最痛苦的時期已過、傷痛正漸漸淡去、迎來新的轉化與希望、重建人生。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣十", 
+                        core: "物質財富世代承傳與基業長青的最高和諧", 
+                        upright: "財富基業極度豐厚穩固、家族基業、企業永續經營、世代傳承、提供安穩長遠的物質保障。", 
+                        reversed: "家族爭產風波、財務不穩動搖根基、空殼公司危機、過度墨守成規阻礙變革、家庭不和。" 
+                    }
+                }
+            },
+            court: {
+                'page': {
+                    title: "侍從 (Page)",
+                    desc: "代表能量的初步萌芽，通常展現為求知欲、訊息傳遞者、新手或尚未成熟的探索。",
+                    wands: { 
+                        name: "權杖侍從", 
+                        core: "滿懷熱情與渴望大膽嘗試的無畏探險新手", 
+                        upright: "充滿活力、大膽嘗試新事物、主動接受挑戰、傳來令人振奮的熱情好消息。", 
+                        reversed: "計畫延遲受阻、缺乏耐心、行事三分鐘熱度、散布虛假流言蜚語、脾氣急躁易怒。" 
+                    },
+                    cups: { 
+                        name: "聖杯侍從", 
+                        core: "情感敏銳、直覺極強且充滿藝術天賦的藝術新手", 
+                        upright: "情感真摯萌芽、溫柔體貼、展現出色的藝術與心靈敏感度、敏銳直覺、學習感性溝通。", 
+                        reversed: "情緒起伏極大、過度沉溺白日夢與幻想、情感勒索與依附、給予不切實際的承諾。" 
+                    },
+                    swords: { 
+                        name: "寶劍侍從", 
+                        core: "思想極為敏銳、在防備中收集情報的好奇心智", 
+                        upright: "思維敏銳過人、強烈求知慾、善於刺探與收集關鍵資訊、保持高度警戒應對危機。", 
+                        reversed: "言詞犀利刻薄、散播不實謠言與八卦、分析流於表面、缺乏實際行動力、策略流產。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣侍從", 
+                        core: "腳踏實地、默默專注於累積資源的求知學徒", 
+                        upright: "務實認真地學習新知識、起步良好、學會逐步儲蓄與累積財富、專注而可靠。", 
+                        reversed: "缺乏恆心、眼高手低、逃避責任不願學習、花錢漫無目的、缺乏切實可行的規劃。" 
+                    }
+                },
+                'knight': {
+                    title: "騎士 (Knight)",
+                    desc: "代表能量的全力進攻與執行力，通常展現為積極行動、衝勁、但也容易急躁與短視。",
+                    wands: { 
+                        name: "權杖騎士", 
+                        core: "勇往直前、尋求狂野冒險與點燃激情的探險家", 
+                        upright: "衝勁十足、主動迎接挑戰、行動敏捷快速、富有個人魅力與開拓領地精神。", 
+                        reversed: "行事魯莽衝動、脾氣暴躁易怒、計畫半途而廢、破壞性強、前進方向混亂失控。" 
+                    },
+                    cups: { 
+                        name: "聖杯騎士", 
+                        core: "優雅感性、傳遞浪漫之愛與誠摯邀請的使者", 
+                        upright: "浪漫追求、帶著溫柔誠摯的邀請而來、感性浪漫、追求理想主義、優秀的衝突調停者。", 
+                        reversed: "虛情假意、以情緒勒索操控關係、逃避現實壓力、濫情且愛慕虛榮、承諾落空。" 
+                    },
+                    swords: { 
+                        name: "寶劍騎士", 
+                        core: "思維如疾風、以雷厲風行手段衝鋒的心智勇士", 
+                        upright: "行動極為迅速、思維敏捷如風、勇往直前衝鋒陷陣、勇敢突破智力難關。", 
+                        reversed: "盲目衝動、言語粗暴傷人、計畫因急躁而半途夭折、缺乏長遠規劃與同理心。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣騎士", 
+                        core: "勤奮務實、默默耕耘且最值得信賴的實踐大師", 
+                        upright: "無比勤奮踏實、極具耐性、做事嚴謹負責任、注重細節、是完美的實踐執行者。", 
+                        reversed: "頑固守舊抗拒變革、做事效率極低、生活索然無味、缺乏前進野心、過度追求物質安逸。" 
+                    }
+                },
+                'queen': {
+                    title: "王后 (Queen)",
+                    desc: "代表內在能量的成熟與滋養，通常表現為同理心、深層直覺、守護與包容力。",
+                    wands: { 
+                        name: "權杖王后", 
+                        core: "自信大方、散發陽光般的溫暖與領袖魅力的女強人", 
+                        upright: "熱情大方、自信獨立、兼具親和力與號召力、生命力旺盛、善於激勵他人。", 
+                        reversed: "嫉妒心重、控制欲強烈、情緒起伏不定、專橫跋扈、缺乏耐心與寬容度。" 
+                    },
+                    cups: { 
+                        name: "聖杯王后", 
+                        core: "深層同理、直覺極強且充滿包容力的水之守護者", 
+                        upright: "無比溫柔、具備極強的直覺力與深度同理心、是優秀的心靈導師、情感世界豐盈。", 
+                        reversed: "過度敏感脆弱、陷入自我同情、情緒失控、情感過度依賴他人、判斷失去客觀。" 
+                    },
+                    swords: { 
+                        name: "寶劍王后", 
+                        core: "冷靜敏銳、不為情感所惑而明察秋毫的冰雪女王", 
+                        upright: "理智犀利、追求絕對的公理與真相、獨立自主、擁有不受情緒左右的高超判斷力。", 
+                        reversed: "冷酷無情、言語刻薄充滿批判、長期懷抱受害者心態、悲觀多疑、排斥外界善意。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣王后", 
+                        core: "慷慨務實、懂得打理生活並孕育繁榮的大地母親", 
+                        upright: "行事慷慨務實、享有高品質生活、卓越的理財與打理生活能力、給予周遭安穩的照顧。", 
+                        reversed: "拜金與唯物主義、控制欲過強、嚴重缺乏內在安全感、理財失常導致財務混亂。" 
+                    }
+                },
+                'king': {
+                    title: "國王 (King)",
+                    desc: "代表外在掌控的最高權威，展現為領袖風範、經驗法則、社會秩序與成熟制約。",
+                    wands: { 
+                        name: "權杖國王", 
+                        core: "高瞻遠矚、掌控全局並極具魄力的卓越領袖", 
+                        upright: "成熟果斷、具備卓越的領袖氣度與遠見、富有開創精神、意志無比堅定且深受尊敬。", 
+                        reversed: "專制獨裁強加意志、暴躁好鬥、自負傲慢、好大喜功、強行壓迫下屬順從。" 
+                    },
+                    cups: { 
+                        name: "聖杯國王", 
+                        core: "情緒穩定、包容萬物並善於心靈引導的智慧長老", 
+                        upright: "情緒境界極高、寬容慈祥、擁有卓越的心理協調能力、深受愛戴的心靈導師與傾聽者。", 
+                        reversed: "情感操縱者、情緒勒索他人、表裡不一虛假寬容、沉溺於感官享樂而冷漠無情。" 
+                    },
+                    swords: { 
+                        name: "寶劍國王", 
+                        core: "掌控正義、邏輯縝密且具備最高智慧的心智權威", 
+                        upright: "智慧權威、崇尚公理正義、邏輯分析縝密客觀、冷靜、是卓越的專業顧問。", 
+                        reversed: "專制殘暴、強詞奪理、控制欲與報復心重、冷酷無情、濫用個人的智謀與權力。" 
+                    },
+                    pentacles: { 
+                        name: "錢幣國王", 
+                        core: "事業宏圖、掌控龐大物質帝國並穩健可靠的主宰者", 
+                        upright: "事業極其成功、物質豐足可靠、擁有驚人的商業手腕與耐性、沉著穩健且樂於提攜後輩。", 
+                        reversed: "貪婪吝嗇、唯物主義至上、頑固守舊阻礙創新、缺乏道德底線的投機商人。" 
+                    }
+                }
+            }
+        };
+
+        // Current Application State
+        let state = {
+            category: 'numbers', // 'numbers' or 'court'
+            selectedValue: '1',   // Dynamic based on selection
+            viewMode: 'cards'    // 'cards' or 'table'
+        };
+
+        // Initialize App on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initSelectors();
+            renderSelectedData();
+            buildFullMatrixTable();
+        });
+
+        // Toggle between Numbers and Court
+        function switchCategory(cat) {
+            state.category = cat;
+            
+            // Adjust buttons active state
+            const btnNumbers = document.getElementById('tab-numbers');
+            const btnCourt = document.getElementById('tab-court');
+            
+            if (cat === 'numbers') {
+                btnNumbers.className = "px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-mystic-gold/40 bg-mystic-gold/10 text-mystic-gold font-bold shadow-[0_0_15px_rgba(197,160,89,0.15)]";
+                btnCourt.className = "px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700";
+                
+                document.getElementById('selector-numbers').classList.remove('hidden');
+                document.getElementById('selector-court').classList.add('hidden');
+                state.selectedValue = '1';
+            } else {
+                btnCourt.className = "px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-mystic-gold/40 bg-mystic-gold/10 text-mystic-gold font-bold shadow-[0_0_15px_rgba(197,160,89,0.15)]";
+                btnNumbers.className = "px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700";
+                
+                document.getElementById('selector-numbers').classList.add('hidden');
+                document.getElementById('selector-court').classList.remove('hidden');
+                state.selectedValue = 'page';
+            }
+            
+            updateSelectorActives();
+            renderSelectedData();
+        }
+
+        // Initialize selectors buttons
+        function initSelectors() {
+            // Numbers 1-10 Buttons
+            const numContainer = document.getElementById('selector-numbers');
+            numContainer.innerHTML = '';
+            for (let i = 1; i <= 10; i++) {
+                const btn = document.createElement('button');
+                btn.id = `btn-num-${i}`;
+                btn.innerText = `${i} 號牌`;
+                btn.onclick = () => selectItem(String(i));
+                btn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-mystic-700 hover:border-mystic-gold/50";
+                numContainer.appendChild(btn);
+            }
+
+            // Court Buttons
+            const courtContainer = document.getElementById('selector-court');
+            courtContainer.innerHTML = '';
+            const courtKeys = ['page', 'knight', 'queen', 'king'];
+            const courtLabels = { page: '侍從 (Page)', knight: '騎士 (Knight)', queen: '王后 (Queen)', king: '國王 (King)' };
+            
+            courtKeys.forEach(key => {
+                const btn = document.createElement('button');
+                btn.id = `btn-court-${key}`;
+                btn.innerText = courtLabels[key];
+                btn.onclick = () => selectItem(key);
+                btn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-mystic-700 hover:border-mystic-gold/50";
+                courtContainer.appendChild(btn);
+            });
+
+            updateSelectorActives();
+        }
+
+        // Handle item selection
+        function selectItem(val) {
+            state.selectedValue = val;
+            updateSelectorActives();
+            renderSelectedData();
+        }
+
+        // Update active class styles for selectors
+        function updateSelectorActives() {
+            // Clear all number button active styles
+            for (let i = 1; i <= 10; i++) {
+                const btn = document.getElementById(`btn-num-${i}`);
+                if (btn) {
+                    if (state.category === 'numbers' && state.selectedValue === String(i)) {
+                        btn.className = "px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 border border-mystic-gold bg-mystic-gold text-mystic-900 shadow-lg shadow-mystic-gold/10";
+                    } else {
+                        btn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-mystic-700 bg-mystic-900/50 text-gray-300 hover:border-mystic-gold/50 hover:bg-mystic-800";
+                    }
+                }
+            }
+
+            // Clear all court button active styles
+            const courtKeys = ['page', 'knight', 'queen', 'king'];
+            courtKeys.forEach(key => {
+                const btn = document.getElementById(`btn-court-${key}`);
+                if (btn) {
+                    if (state.category === 'court' && state.selectedValue === key) {
+                        btn.className = "px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 border border-mystic-gold bg-mystic-gold text-mystic-900 shadow-lg shadow-mystic-gold/10";
+                    } else {
+                        btn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-mystic-700 bg-mystic-900/50 text-gray-300 hover:border-mystic-gold/50 hover:bg-mystic-800";
+                    }
+                }
+            });
+        }
+
+        // Render card views with updated content
+        function renderSelectedData() {
+            const currentItem = tarotData[state.category][state.selectedValue];
+            
+            // Set Banner info
+            document.getElementById('current-badge').innerText = currentItem.title;
+            document.getElementById('current-desc').innerText = currentItem.desc;
+
+            // Render Wands
+            populateCardHTML('card-wands', 'wands', currentItem.wands, 'mystic-wands', '🔥', 'border-mystic-wands/20');
+            // Render Cups
+            populateCardHTML('card-cups', 'cups', currentItem.cups, 'mystic-cups', '💧', 'border-mystic-cups/20');
+            // Render Swords
+            populateCardHTML('card-swords', 'swords', currentItem.swords, 'mystic-swords', '💨', 'border-mystic-swords/20');
+            // Render Pentacles
+            populateCardHTML('card-pentacles', 'pentacles', currentItem.pentacles, 'mystic-pentacles', '🌱', 'border-mystic-pentacles/20');
+        }
+
+        // Helper to populate individual card blocks
+        function populateCardHTML(elementId, type, cardData, colorClass, icon, borderClass) {
+            const cardElement = document.getElementById(elementId);
+            const titleColor = {
+                wands: 'text-mystic-wands',
+                cups: 'text-mystic-cups',
+                swords: 'text-mystic-swords',
+                pentacles: 'text-mystic-pentacles'
+            }[type];
+
+            cardElement.innerHTML = `
+                <!-- Card Head -->
+                <div class="p-5 border-b border-mystic-700/60 bg-mystic-900/40 relative">
+                    <div class="absolute top-4 right-4 text-2xl opacity-40">${icon}</div>
+                    <span class="text-xs uppercase tracking-wider text-gray-500 font-mystical">MINOR ARCANA</span>
+                    <h3 class="text-2xl font-bold font-mystical ${titleColor} mt-1">${cardData.name}</h3>
+                </div>
+                
+                <!-- Core Meaning -->
+                <div class="px-5 py-4 border-b border-mystic-700/40 bg-mystic-700/10">
+                    <span class="text-xs text-mystic-gold font-semibold uppercase tracking-wider block mb-1">
+                        <i class="fa-solid fa-compass mr-1"></i> 核心意涵
+                    </span>
+                    <p class="text-sm font-medium text-gray-200 leading-relaxed">${cardData.core}</p>
+                </div>
+                
+                <!-- Upright and Reversed details -->
+                <div class="p-5 flex-grow space-y-4">
+                    <!-- Upright -->
+                    <div class="bg-mystic-900/30 p-3.5 rounded-xl border border-mystic-gold/10 hover:border-mystic-gold/20 transition">
+                        <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded bg-mystic-gold/10 text-mystic-goldLight mb-2 border border-mystic-gold/20">
+                            <i class="fa-solid fa-arrow-up-long mr-1"></i> 正位 (Upright)
+                        </span>
+                        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">${cardData.upright}</p>
+                    </div>
+                    
+                    <!-- Reversed -->
+                    <div class="bg-mystic-900/30 p-3.5 rounded-xl border border-red-500/10 hover:border-red-500/20 transition">
+                        <span class="inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded bg-red-950/30 text-red-400 mb-2 border border-red-900/40">
+                            <i class="fa-solid fa-arrow-down-long mr-1"></i> 逆位 (Reversed)
+                        </span>
+                        <p class="text-xs sm:text-sm text-gray-300 leading-relaxed">${cardData.reversed}</p>
+                    </div>
+                </div>
+                
+                <!-- Card Footer (Decorative) -->
+                <div class="px-5 py-3 border-t border-mystic-700/40 bg-mystic-900/20 text-center">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-gray-500 font-mystical">Tarot Matrix Energy</span>
+                </div>
+            `;
+        }
+
+        // Set View mode: Cards or Table
+        function setViewMode(mode) {
+            state.viewMode = mode;
+            
+            const btnCards = document.getElementById('btn-view-cards');
+            const btnTable = document.getElementById('btn-view-table');
+            const viewCards = document.getElementById('view-cards');
+            const viewTable = document.getElementById('view-table');
+            
+            if (mode === 'cards') {
+                btnCards.className = "px-4 py-1.5 rounded text-xs sm:text-sm transition bg-mystic-gold text-mystic-900 font-semibold shadow";
+                btnTable.className = "px-4 py-1.5 rounded text-xs sm:text-sm transition text-gray-400 hover:text-gray-200";
+                viewCards.classList.remove('hidden');
+                viewTable.classList.add('hidden');
+            } else {
+                btnTable.className = "px-4 py-1.5 rounded text-xs sm:text-sm transition bg-mystic-gold text-mystic-900 font-semibold shadow";
+                btnCards.className = "px-4 py-1.5 rounded text-xs sm:text-sm transition text-gray-400 hover:text-gray-200";
+                viewTable.classList.remove('hidden');
+                viewCards.classList.add('hidden');
+            }
+        }
+
+        // Populate and construct the full comparison table view
+        function buildFullMatrixTable() {
+            const tbody = document.getElementById('table-body');
+            tbody.innerHTML = '';
+
+            // Section 1: Numbers (1-10)
+            const sectionHeaderNum = document.createElement('tr');
+            sectionHeaderNum.className = "bg-mystic-900/60";
+            sectionHeaderNum.innerHTML = `
+                <td colspan="5" class="p-3 text-center text-xs tracking-[0.3em] font-mystical text-mystic-gold font-bold border-y border-mystic-gold/20">
+                    第一階段：數字牌 (ACE - 10 號) 能量演變
+                </td>
+            `;
+            tbody.appendChild(sectionHeaderNum);
+
+            Object.keys(tarotData.numbers).forEach(numKey => {
+                const item = tarotData.numbers[numKey];
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-mystic-700/40 hover:bg-mystic-700/10 transition";
+                tr.innerHTML = `
+                    <td class="p-4 align-top">
+                        <div class="font-mystical font-bold text-mystic-gold">${item.title}</div>
+                        <div class="text-[11px] text-gray-400 mt-1 font-light leading-snug">${item.desc}</div>
+                    </td>
+                    <!-- Wands -->
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="font-bold text-mystic-wands text-sm">${item.wands.name}</div>
+                        <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.wands.core}</div>
+                        <div class="text-xs text-gray-300 mt-2">
+                            <strong class="text-mystic-gold">正：</strong>${item.wands.upright}<br>
+                            <strong class="text-red-400">逆：</strong>${item.wands.reversed}
+                        </div>
+                    </td>
+                    <!-- Cups -->
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="font-bold text-mystic-cups text-sm">${item.cups.name}</div>
+                        <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.cups.core}</div>
+                        <div class="text-xs text-gray-300 mt-2">
+                            <strong class="text-mystic-gold">正：</strong>${item.cups.upright}<br>
+                            <strong class="text-red-400">逆：</strong>${item.cups.reversed}
+                        </div>
+                    </td>
+                    <!-- Swords -->
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="font-bold text-mystic-swords text-sm">${item.swords.name}</div>
+                        <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.swords.core}</div>
+                        <div class="text-xs text-gray-300 mt-2">
+                            <strong class="text-mystic-gold">正：</strong>${item.swords.upright}<br>
+                            <strong class="text-red-400">逆：</strong>${item.swords.reversed}
+                        </div>
+                    </td>
+                    <!-- Pentacles -->
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="font-bold text-mystic-pentacles text-sm">${item.pentacles.name}</div>
+                        <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.pentacles.core}</div>
+                        <div class="text-xs text-gray-300 mt-2">
+                            <strong class="text-mystic-gold">正：</strong>${item.pentacles.upright}<br>
+                            <strong class="text-red-400">逆：</strong>${item.pentacles.reversed}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Section 2: Court Cards
+            const sectionHeaderCourt = document.createElement('tr');
+            sectionHeaderCourt.className = "bg-mystic-900/60";
+            sectionHeaderCourt.innerHTML = `
+                <td colspan="5" class="p-3 text-center text-xs tracking-[0.3em] font-mystical text-mystic-gold font-bold border-y border-mystic-gold/20">
+                    第二階段：宮廷人物牌 (PAGE - KING) 人際心智
+                </td>
+            `;
+            tbody.appendChild(sectionHeaderCourt);
+
+            Object.keys(tarotData.court).forEach(courtKey => {
+                const item = tarotData.court[courtKey];
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-mystic-700/40 hover:bg-mystic-700/10 transition";
+                tr.innerHTML = `
+                    <td class="p-4 align-top">
+                        <div class="font-mystical font-bold text-mystic-gold">${item.title}</div>
+                        <div class="text-[11px] text-gray-400 mt-1 font-light leading-snug">${item.desc}</div>
+                    </td>
+                    <!-- Wands -->
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="font-bold text-mystic-wands text-sm">${item.wands.name}</div>
+                        <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.wands.core}</div>
+                        <div class="text-xs text-gray-300 mt-2">
+                            <strong class="text-mystic-gold">正：</strong>${item.wands.upright}<br>
+                            <strong class="text-red-400">逆：</strong>${item.wands.reversed}
+                        </div>
+                    </td>
+                    <!-- Cups -->
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="font-bold text-mystic-cups text-sm">${item.cups.name}</div>
+                        <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.cups.core}</div>
+                        <div class="text-xs text-gray-300 mt-2">
+                            <strong class="text-mystic-gold">正：</strong>${item.cups.upright}<br>
+                            <strong class="text-red-400">逆：</strong>${item.cups.reversed}
+                        </div>
+                    </td>
+                    <!-- Swords -->
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="font-bold text-mystic-swords text-sm">${item.swords.name}</div>
+                        <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.swords.core}</div>
+                        <div class="text-xs text-gray-300 mt-2">
+                            <strong class="text-mystic-gold">正：</strong>${item.swords.upright}<br>
+                            <strong class="text-red-400">逆：</strong>${item.swords.reversed}
+                        </div>
+                    </td>
+                    <!-- Pentacles -->
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="font-bold text-mystic-pentacles text-sm">${item.pentacles.name}</div>
+                        <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.pentacles.core}</div>
+                        <div class="text-xs text-gray-300 mt-2">
+                            <strong class="text-mystic-gold">正：</strong>${item.pentacles.upright}<br>
+                            <strong class="text-red-400">逆：</strong>${item.pentacles.reversed}
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+    </script>
+</body>
+</html>
