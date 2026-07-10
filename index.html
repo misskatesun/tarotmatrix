@@ -3,14 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>塔羅四元素核心意涵探索器 (1-10號與宮廷人物牌)</title>
-    <!-- Tailwind CSS CDN -->
+    <title>塔羅奧秘全系列核心探索器 (大阿卡納 & 小阿卡納)</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Cinzel & Noto Sans TC -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <!-- FontAwesome for symbols -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <script>
@@ -23,16 +20,17 @@
                     },
                     colors: {
                         mystic: {
-                            900: '#09090e',
-                            800: '#121225',
-                            700: '#1c1b35',
-                            600: '#2a284a',
+                            900: '#06060c',
+                            800: '#0e0e1e',
+                            700: '#17162d',
+                            600: '#232142',
                             gold: '#c5a059',
                             goldLight: '#e6c887',
                             wands: '#f97316',
                             cups: '#3b82f6',
                             swords: '#a855f7',
-                            pentacles: '#10b981'
+                            pentacles: '#10b981',
+                            major: '#ec4899'
                         }
                     }
                 }
@@ -41,153 +39,362 @@
     </script>
     <style>
         body {
-            background-color: #09090e;
+            background-color: #06060c;
             background-image: 
-                radial-gradient(at 10% 20%, rgba(26, 21, 44, 0.3) 0px, transparent 50%),
-                radial-gradient(at 90% 80%, rgba(18, 30, 49, 0.3) 0px, transparent 50%);
+                radial-gradient(at 10% 20%, rgba(35, 25, 60, 0.4) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(15, 35, 65, 0.4) 0px, transparent 50%);
             background-attachment: fixed;
         }
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #09090e;
+            background: #06060c;
         }
         ::-webkit-scrollbar-thumb {
             background: #c5a059;
             border-radius: 4px;
         }
-        /* Tarot card style glow */
         .tarot-card {
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .tarot-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
         }
-        .wands-glow:hover { border-color: #f97316; box-shadow: 0 0 20px rgba(249, 115, 22, 0.2); }
-        .cups-glow:hover { border-color: #3b82f6; box-shadow: 0 0 20px rgba(59, 130, 246, 0.2); }
-        .swords-glow:hover { border-color: #a855f7; box-shadow: 0 0 20px rgba(168, 85, 247, 0.2); }
-        .pentacles-glow:hover { border-color: #10b981; box-shadow: 0 0 20px rgba(16, 185, 129, 0.2); }
+        .wands-glow:hover { border-color: #f97316; box-shadow: 0 0 25px rgba(249, 115, 22, 0.25); }
+        .cups-glow:hover { border-color: #3b82f6; box-shadow: 0 0 25px rgba(59, 130, 246, 0.25); }
+        .swords-glow:hover { border-color: #a855f7; box-shadow: 0 0 25px rgba(168, 85, 247, 0.25); }
+        .pentacles-glow:hover { border-color: #10b981; box-shadow: 0 0 25px rgba(16, 185, 129, 0.25); }
+        .major-glow:hover { border-color: #ec4899; box-shadow: 0 0 30px rgba(236, 72, 153, 0.3); }
+        
+        .pulse-gold {
+            animation: pulse-border 3s infinite;
+        }
+        @keyframes pulse-border {
+            0%, 100% { border-color: rgba(197, 160, 89, 0.2); }
+            50% { border-color: rgba(197, 160, 89, 0.6); }
+        }
     </style>
 </head>
 <body class="font-sans text-gray-200 min-h-screen py-8 px-4 sm:px-6 lg:px-8">
 
     <div class="max-w-7xl mx-auto">
-        <!-- Header -->
         <header class="text-center mb-10 relative">
             <div class="inline-block border-b border-mystic-gold pb-4 mb-2">
-                <span class="text-xs uppercase tracking-[0.3em] text-mystic-goldLight font-mystical">The Minor Arcana Matrix</span>
-                <h1 class="text-3xl sm:text-4xl font-bold font-mystical text-transparent bg-clip-text bg-gradient-to-r from-mystic-goldLight via-yellow-100 to-mystic-gold mt-1">
-                    塔羅四元素對照探索器
+                <span class="text-xs uppercase tracking-[0.3em] text-mystic-goldLight font-mystical">The Complete Tarot Archive</span>
+                <h1 class="text-3xl sm:text-5xl font-bold font-mystical text-transparent bg-clip-text bg-gradient-to-r from-mystic-goldLight via-yellow-100 to-mystic-gold mt-2">
+                    塔羅全系列奧秘探索器
                 </h1>
             </div>
-            <p class="text-sm text-gray-400 max-w-2xl mx-auto mt-2">
-                完美融合「數字學演變」與「宮廷人際心智」。點選下方類別與牌組，並行分析火、水、風、土四元素的核心轉化、正位與逆位奧秘。
+            <p class="text-sm text-gray-400 max-w-3xl mx-auto mt-2 leading-relaxed">
+                結合大阿卡納「二十二條靈魂業力軌跡」與小阿卡納「四元素生活動力學」。<br class="hidden sm:inline">
+                為您剖析靈魂藍圖（大牌）與日常生活實踐（小牌）中的正位顯化與逆位轉化契機。
             </p>
         </header>
 
-        <!-- Main Controller Panel -->
-        <div class="bg-mystic-800 border border-mystic-gold/20 rounded-2xl p-6 mb-8 shadow-xl backdrop-blur-md">
+        <div class="bg-mystic-800 border border-mystic-gold/20 rounded-2xl p-6 mb-8 shadow-2xl backdrop-blur-md pulse-gold">
             
-            <!-- Category Tabs: Numbers vs Court -->
-            <div class="flex justify-center space-x-4 mb-6">
-                <button id="tab-numbers" onclick="switchCategory('numbers')" class="px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-mystic-gold/40 bg-mystic-gold/10 text-mystic-gold font-bold shadow-[0_0_15px_rgba(197,160,89,0.15)]">
+            <!-- Top Tier Category Switch: Major vs Minor -->
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-6 pb-6 border-b border-mystic-700/60">
+                <button id="main-tab-major" onclick="switchMainCategory('major')" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-mystical text-base tracking-wider transition-all duration-300 border border-mystic-gold/40 bg-mystic-gold/15 text-mystic-goldLight font-bold shadow-[0_0_20px_rgba(197,160,89,0.2)]">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2 text-pink-400"></i> 大阿卡納 (大牌 · 靈魂路徑)
+                </button>
+                <button id="main-tab-minor" onclick="switchMainCategory('minor')" class="w-full sm:w-auto px-8 py-3.5 rounded-xl font-mystical text-base tracking-wider transition-all duration-300 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700/50">
+                    <i class="fa-solid fa-layer-group mr-2 text-amber-500"></i> 小阿卡納 (小牌 · 生活能量)
+                </button>
+            </div>
+
+            <!-- Minor Arcana Category Switch: Numbers vs Court (Only shown when Minor is active) -->
+            <div id="minor-sub-tabs" class="hidden flex justify-center space-x-4 mb-6">
+                <button id="tab-numbers" onclick="switchMinorCategory('numbers')" class="px-5 py-2.5 rounded-xl font-mystical text-sm tracking-wider transition-all duration-200 border border-mystic-gold/30 bg-mystic-gold/10 text-mystic-goldLight">
                     <i class="fa-solid fa-arrow-1-9 mr-2"></i> 數字牌 (1 - 10 號)
                 </button>
-                <button id="tab-court" onclick="switchCategory('court')" class="px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700">
+                <button id="tab-court" onclick="switchMinorCategory('court')" class="px-5 py-2.5 rounded-xl font-mystical text-sm tracking-wider transition-all duration-200 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700/50">
                     <i class="fa-solid fa-chess-queen mr-2"></i> 宮廷人物牌 (侍從 - 國王)
                 </button>
             </div>
 
-            <!-- Sub-Selectors -->
             <div>
-                <!-- Numbers Selectors -->
-                <div id="selector-numbers" class="flex flex-wrap justify-center gap-2">
+                <!-- Major Arcana Selectors -->
+                <div id="selector-major" class="flex flex-wrap justify-center gap-2">
+                    <!-- Dynamic Buttons for Major Arcana will go here via JS -->
+                </div>
+
+                <!-- Minor Numbers Selectors -->
+                <div id="selector-numbers" class="hidden flex flex-wrap justify-center gap-2">
                     <!-- Dynamic Buttons for Numbers 1-10 will go here via JS -->
                 </div>
 
-                <!-- Court Card Selectors (Hidden by default) -->
+                <!-- Minor Court Selectors -->
                 <div id="selector-court" class="hidden flex flex-wrap justify-center gap-3">
                     <!-- Dynamic Buttons for Court Cards will go here via JS -->
                 </div>
             </div>
 
             <!-- Description Banner for Current Selection -->
-            <div class="mt-6 pt-4 border-t border-mystic-700 text-center">
-                <span id="current-badge" class="bg-mystic-gold/10 border border-mystic-gold/30 text-mystic-goldLight text-xs px-3 py-1 rounded-full uppercase tracking-wider font-mystical"></span>
-                <p id="current-desc" class="text-base sm:text-lg text-gray-300 mt-2 font-light italic"></p>
+            <div class="mt-6 pt-5 border-t border-mystic-700 text-center">
+                <span id="current-badge" class="bg-mystic-gold/10 border border-mystic-gold/30 text-mystic-goldLight text-xs px-4 py-1.5 rounded-full uppercase tracking-wider font-mystical"></span>
+                <p id="current-desc" class="text-base sm:text-lg text-gray-300 mt-3 font-light italic leading-relaxed"></p>
             </div>
         </div>
 
-        <!-- View Swapper Control -->
-        <div class="flex justify-between items-center mb-6">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
             <h2 class="text-xl font-mystical font-semibold text-mystic-goldLight">
-                <i class="fa-solid fa-circle-nodes mr-2 text-mystic-gold"></i>能量矩陣對照
+                <i class="fa-solid fa-circle-nodes mr-2 text-mystic-gold"></i>奧秘矩陣解析
             </h2>
-            <div class="bg-mystic-900 border border-mystic-700 p-1 rounded-lg inline-flex">
-                <button onclick="setViewMode('cards')" id="btn-view-cards" class="px-4 py-1.5 rounded text-xs sm:text-sm transition bg-mystic-gold text-mystic-900 font-semibold shadow">
-                    <i class="fa-solid fa-id-card mr-1"></i> 卡牌對比
+            <div class="bg-mystic-900 border border-mystic-700 p-1 rounded-lg inline-flex w-full sm:w-auto">
+                <button onclick="setViewMode('cards')" id="btn-view-cards" class="flex-1 sm:flex-initial px-5 py-2 rounded text-xs sm:text-sm transition bg-mystic-gold text-mystic-900 font-semibold shadow">
+                    <i class="fa-solid fa-id-card mr-1.5"></i> 精美卡牌
                 </button>
-                <button onclick="setViewMode('table')" id="btn-view-table" class="px-4 py-1.5 rounded text-xs sm:text-sm transition text-gray-400 hover:text-gray-200">
-                    <i class="fa-solid fa-table-list mr-1"></i> 矩陣總表
+                <button onclick="setViewMode('table')" id="btn-view-table" class="flex-1 sm:flex-initial px-5 py-2 rounded text-xs sm:text-sm transition text-gray-400 hover:text-gray-200">
+                    <i class="fa-solid fa-table-list mr-1.5"></i> 矩陣總表
                 </button>
             </div>
         </div>
 
-        <!-- View 1: Card Grid View -->
-        <div id="view-cards" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div id="view-major-showcase" class="hidden">
+            <!-- Dynamic showcase card populated by JS -->
+        </div>
+
+        <!-- Minor Arcana 4-Element Card Grid View -->
+        <div id="view-minor-cards" class="hidden grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
             <!-- 4 Element Cards dynamically populated -->
             <!-- Wands (Fire) -->
-            <div id="card-wands" class="tarot-card wands-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between">
-                <!-- Inner populated by JS -->
-            </div>
+            <div id="card-wands" class="tarot-card wands-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between"></div>
             <!-- Cups (Water) -->
-            <div id="card-cups" class="tarot-card cups-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between">
-                <!-- Inner populated by JS -->
-            </div>
+            <div id="card-cups" class="tarot-card cups-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between"></div>
             <!-- Swords (Air) -->
-            <div id="card-swords" class="tarot-card swords-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between">
-                <!-- Inner populated by JS -->
-            </div>
+            <div id="card-swords" class="tarot-card swords-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between"></div>
             <!-- Pentacles (Earth) -->
-            <div id="card-pentacles" class="tarot-card pentacles-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-lg flex flex-col justify-between">
-                <!-- Inner populated by JS -->
-            </div>
+            <div id="card-pentacles" class="tarot-card pentacles-glow bg-mystic-800 border border-mystic-700 rounded-2xl overflow-hidden shadow-xl flex flex-col justify-between"></div>
         </div>
 
-        <!-- View 2: Detailed Matrix Table View (Hidden by default) -->
-        <div id="view-table" class="hidden overflow-x-auto bg-mystic-800 border border-mystic-gold/20 rounded-2xl shadow-xl">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-mystic-900 border-b border-mystic-gold/30">
-                        <th class="p-4 font-mystical text-mystic-gold text-sm sm:text-base w-1/5 min-w-[150px]">牌組類型</th>
-                        <th class="p-4 border-l border-mystic-700/50 text-mystic-wands font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-fire mr-1"></i> 權杖 (火元素 🔥)</th>
-                        <th class="p-4 border-l border-mystic-700/50 text-mystic-cups font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-droplet mr-1"></i> 聖杯 (水元素 💧)</th>
-                        <th class="p-4 border-l border-mystic-700/50 text-mystic-swords font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 寶劍 (風元素 💨)</th>
-                        <th class="p-4 border-l border-mystic-700/50 text-mystic-pentacles font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-clover mr-1"></i> 錢幣 (土元素 🌱)</th>
-                    </tr>
-                </thead>
-                <tbody id="table-body">
-                    <!-- Populated dynamically via JS to list everything perfectly -->
-                </tbody>
-            </table>
+        <div id="view-table" class="hidden space-y-10">
+            
+            <!-- Major Arcana Table -->
+            <div id="table-major-container" class="overflow-x-auto bg-mystic-800 border border-pink-500/20 rounded-2xl shadow-xl">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-mystic-900 border-b border-pink-500/30">
+                            <th class="p-4 font-mystical text-pink-400 text-sm sm:text-base w-1/5 min-w-[150px]">大阿卡納牌組</th>
+                            <th class="p-4 border-l border-mystic-700/50 text-mystic-goldLight font-mystical text-sm sm:text-base w-1/5 min-w-[200px]">星象與元素對應</th>
+                            <th class="p-4 border-l border-mystic-700/50 text-gray-200 font-mystical text-sm sm:text-base w-2/5 min-w-[300px]">靈魂核心功課</th>
+                            <th class="p-4 border-l border-mystic-700/50 text-mystic-goldLight font-mystical text-sm sm:text-base w-1/5 min-w-[250px]"><i class="fa-solid fa-arrow-up-long mr-1 text-mystic-gold"></i> 正位深度占卜引導</th>
+                            <th class="p-4 border-l border-mystic-700/50 text-red-400 font-mystical text-sm sm:text-base w-1/5 min-w-[250px]"><i class="fa-solid fa-arrow-down-long mr-1 text-red-500"></i> 逆位深層心靈轉化</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-major-body"></tbody>
+                </table>
+            </div>
+
+            <!-- Minor Arcana Table -->
+            <div id="table-minor-container" class="hidden overflow-x-auto bg-mystic-800 border border-mystic-gold/20 rounded-2xl shadow-xl">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-mystic-900 border-b border-mystic-gold/30">
+                            <th class="p-4 font-mystical text-mystic-gold text-sm sm:text-base w-1/5 min-w-[150px]">小阿卡納牌組</th>
+                            <th class="p-4 border-l border-mystic-700/50 text-mystic-wands font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-fire mr-1"></i> 權杖 (火元素 🔥)</th>
+                            <th class="p-4 border-l border-mystic-700/50 text-mystic-cups font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-droplet mr-1"></i> 聖杯 (水元素 💧)</th>
+                            <th class="p-4 border-l border-mystic-700/50 text-mystic-swords font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> 寶劍 (風元素 💨)</th>
+                            <th class="p-4 border-l border-mystic-700/50 text-mystic-pentacles font-mystical text-sm sm:text-base w-1/5 min-w-[220px]"><i class="fa-solid fa-clover mr-1"></i> 錢幣 (土元素 🌱)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-minor-body"></tbody>
+                </table>
+            </div>
         </div>
 
         <!-- Core Mystical Teachings footer -->
         <div class="mt-12 bg-mystic-800/40 border border-mystic-gold/10 rounded-2xl p-6 text-center max-w-4xl mx-auto backdrop-blur-sm">
             <h3 class="font-mystical text-mystic-goldLight text-lg mb-2">塔羅探索提示</h3>
             <p class="text-sm text-gray-400 leading-relaxed max-w-3xl mx-auto">
-                <span class="text-mystic-wands">火 (行動力)</span>、<span class="text-mystic-cups">水 (情感感應)</span>、<span class="text-mystic-swords">風 (心智抉擇)</span> 與 <span class="text-mystic-pentacles">土 (物質基礎)</span> 是建構小阿爾克那的基本。正位代表該能量順暢運作、或得到健康的展現；逆位則指出能量的過度累積、扭曲、延遲或需要內省的轉化契機。請在解讀時，抱持唯識與能量流動的宏觀視角。
+                <span class="text-pink-400">大阿卡納 (22張)</span> 象徵宏觀的靈魂藍圖與生命必經的永恆原型；<span class="text-mystic-goldLight">小阿卡納 (56張)</span> 則以火（權杖）、水（聖杯）、風（寶劍）、土（錢幣）深入日常的生活修煉。解讀時，大阿卡納揭示了「為什麼這件事會發生（業力與課題）」，而小阿卡納則提供「當下如何應對（行動與選擇）」。正位與逆位並非絕對吉凶，而是能量順暢或淤積的誠實顯現。
             </p>
         </div>
     </div>
 
-    <!-- TAROT DATA STRUCTURE IN JAVASCRIPT -->
     <script>
         const tarotData = {
+            major: {
+                '0': {
+                    title: "0 愚者 (The Fool)",
+                    desc: "代表靈魂踏上全新未知旅程的起點，擁有無限的潛能與無畏的信心。",
+                    astro: "天王星 / 風元素 💨",
+                    core: "跳脫常規的冒險狂熱、對宇宙秩序的完全信任與零成見的純真起點。",
+                    upright: "帶著絕對的信任擁抱未知、大膽啟程、天真無邪、說走就走的旅行、開啟全新計畫、無限的可能性。",
+                    reversed: "流於盲目衝動、不負責任的逃避、忽視現實危機、在懸崖邊行事、無法承諾、流浪漢心態。"
+                },
+                '1': {
+                    title: "1 魔術師 (The Magician)",
+                    desc: "代表將意志、智慧與萬物資源化為實質物質顯化的強大創造力。",
+                    astro: "水星 / 風元素 💨",
+                    core: "連結天地、掌握風火水土四元素工具、並將靈魂概念在人間落地的卓越實踐力。",
+                    upright: "資源齊備、才華完全展現、高度專注、主動創造生活、極佳的溝通技巧、掌握大局與技術突破。",
+                    reversed: "小聰明誤國、口蜜腹劍的欺騙、資源被濫用、才華無處施展、注意力渙散、虛假承諾。"
+                },
+                '2': {
+                    title: "2 女祭司 (The High Priestess)",
+                    desc: "代表連結深層潛意識、直覺與靈性奧秘的靜止智慧。",
+                    astro: "月亮 / 水元素 💧",
+                    core: "在動盪的世界中維持冷靜、傾聽內在直覺的引導、守護內在神殿的神聖寂靜。",
+                    upright: "直覺力極強、尋求靈性引導、靜觀其變、守口如瓶、潛意識智慧、內在自我療癒與秘密逐漸揭曉。",
+                    reversed: "過度冷漠疏離、壓抑情感與直覺、陷入表面化分析、神經質、對他人有強烈的猜忌。 "
+                },
+                '3': {
+                    title: "3 皇后 (The Empress)",
+                    desc: "代表大地母親的富饒豐盛、感官享受、生命孕育與溫暖滋養。",
+                    astro: "金星 / 土元素 🌱",
+                    core: "無條件接納生命的所有豐盛、感受自然的療癒、用感性、愛與藝術滋養自我與周遭世界。",
+                    upright: "物質生活富裕豐盛、懷孕或誕生新事物、創造力爆發、與大自然建立深層連結、無私照料他人。",
+                    reversed: "創造力遭遇瓶頸、過度控制與溺愛、過度依賴與揮霍、因窒息的愛導致人際衝突、自我價值感低落。"
+                },
+                '4': {
+                    title: "4 皇帝 (The Emperor)",
+                    desc: "代表建立穩固秩序、社會結構、權威力量與實質物質控制。",
+                    astro: "白羊座 / 火元素 🔥",
+                    core: "運用理性制定規則、保護疆土、展現卓越的領袖氣度與鋼鐵般的意志力。",
+                    upright: "掌控大局、建立穩固基石、高度紀律、父親般的威信與保護力、策略性的長遠規劃、事業領袖。",
+                    reversed: "專制霸道、控制欲過強、剛愎自用招致反撲、缺乏長遠眼光、懦弱無能卻愛充威嚴。"
+                },
+                '5': {
+                    title: "5 教皇 (The Hierophant)",
+                    desc: "代表傳統體制、精神信念傳承、社會公德與靈性導引的精神導師。",
+                    astro: "金牛座 / 土元素 🌱",
+                    core: "尋求普世價值認同、透過傳統儀式、信仰、學校或導師找到靈魂的歸屬與秩序感。",
+                    upright: "學習傳統智慧、尋求導師諮詢、婚約或契約確立、遵從主流社會價值、獲得心靈信仰支撐。",
+                    reversed: "思想封閉教條主義、反抗體制與威權、打破常規尋求自由、迷信盲從、遭受體制迫害。"
+                },
+                '6': {
+                    title: "6 戀人 (The Lovers)",
+                    desc: "代表靈魂契合的和諧關係、價值觀的對齊、以及人生十字路口的重大選擇。",
+                    astro: "雙子座 / 風元素 💨",
+                    core: "以愛、同理心建立關係、並在抉擇中重新定義自我靈魂的真實價值觀對齊。",
+                    upright: "情感高度契合、完美的合作關係、面對心靈選擇做出正確決定、身心靈的和諧對稱、吸引力吸引力。",
+                    reversed: "關係破裂失衡、決策失誤帶來後悔、逃避情感承諾、價值觀分歧、表面合諧背後冷淡。"
+                },
+                '7': {
+                    title: "7 戰車 (The Chariot)",
+                    desc: "代表以鋼鐵般堅強的意志力克制內在衝突、勇往直前的重大勝利。",
+                    astro: "巨蟹座 / 水元素 💧",
+                    core: "調和本能野性與感性衝突（黑白雙獅）、朝向目標集中進攻、用意志掌控命運的戰士。",
+                    upright: "意志力無比堅定、克服重重障礙獲得凱旋、出差或買車、動態前進、自我掌控力極佳。",
+                    reversed: "失去控制失序、前行方向嚴重偏離、侵略性過強導致衝突、遭受沉重挫敗、計畫流產。"
+                },
+                '8': {
+                    title: "8 力量 (The Strength)",
+                    desc: "代表以溫柔、內在勇氣與同理心馴服野性慾望的崇高內在力量。",
+                    astro: "獅子座 / 火元素 🔥",
+                    core: "非暴力而強大的忍耐力、接受並包容自己的陰暗與野性衝動、用愛感化外界敵意。",
+                    upright: "以柔克剛、無比的勇氣與耐性、接受內在慾望並引導、戰勝疾病或內在軟弱、堅韌不拔。",
+                    reversed: "力量不對稱（軟弱妥協或濫用暴力）、情緒失控、自信心嚴重崩塌、屈服於本能誘惑。"
+                },
+                '9': {
+                    title: "9 隱士 (The Hermit)",
+                    desc: "代表獨自踏上追尋真理、內省、自我反思與靈性引導的孤獨內在旅程。",
+                    astro: "處女座 / 土元素 🌱",
+                    core: "提燈照亮前路、在孤獨中提煉智慧、遠離外界喧囂以尋找靈魂真正本質。",
+                    upright: "閉關修煉、自我反省與覺察、尋求專業靈性導師、在靜默中看清真相、遠離世俗紛擾。",
+                    reversed: "社交孤立偏執、拒絕接受他人指引、逃避現實生活、過度挑剔、迷失在黑暗思維中。"
+                },
+                '10': {
+                    title: "10 命運之輪 (Wheel of Fortune)",
+                    desc: "代表生命週期的流轉、不可抗力的變化、以及命運突如其來的轉折契機。",
+                    astro: "木星 / 火元素 🔥",
+                    core: "理解命運的無常與循環、學會在高潮時謙遜、在低谷時保持信心、順應天命。",
+                    upright: "好運降臨、生命迎來重大正面轉折、契機出現、順應局勢發展、意外的禮物、宿命論因果顯化。",
+                    reversed: "運勢處於谷底、抗拒改變導致痛苦、壞習慣重複循環、時機不對、努力事倍功半。"
+                },
+                '11': {
+                    title: "11 正義 (The Justice)",
+                    desc: "代表基於客觀因果、誠實、邏輯與真理的公平裁決與道德平衡。",
+                    astro: "天秤座 / 風元素 💨",
+                    core: "手持寶劍與天平、冷靜剖析因果法律關係、做出對得起天地良心的不偏不倚判決。",
+                    upright: "公理得以昭雪、獲得公平對待、法律合約簽署順利、誠實面對自我因果責任、不偏不倚。",
+                    reversed: "遭遇不公待遇、偏見與欺瞞橫行、推卸因果責任、法律訴訟陷入糾紛、認知失調。"
+                },
+                '12': {
+                    title: "12 倒吊人 (The Hanged Man)",
+                    desc: "代表以全新、顛倒的視角甘願自我犧牲、在靜止中等待靈魂昇華的智慧。",
+                    astro: "海王星 / 水元素 💧",
+                    core: "停止無謂掙扎、在看似困守的局勢中主動臣服命運、於靈魂深處醞釀全新的世界觀。",
+                    upright: "換個角度看世界、甘願自我犧牲換取大局、臣服當下、停止行動的內省期、靈魂昇華。",
+                    reversed: "徒勞無功的死撐、抗拒臣服命運、陷入受害者情結自怨自艾、自我拖延時間、虛度光陰。"
+                },
+                '13': {
+                    title: "13 死神 (The Death)",
+                    desc: "代表徹底結束舊有腐敗模式、置之死地而後生的深刻蛻變旅程。",
+                    astro: "天蠍座 / 水元素 💧",
+                    core: "勇敢斬斷過時的執念與結構、容許舊我死去、為即將到來的新生騰出心靈空間。",
+                    upright: "重大而不可逆的結束、舊結構瓦解、迎接新生與蛻變、勇敢割捨、告別過去、轉型。",
+                    reversed: "抗拒必然的改變與結束、在行屍走肉中死拖活拉、害怕深刻的靈魂蛻變、陷入停滯泥潭。"
+                },
+                '14': {
+                    title: "14 節制 (The Temperance)",
+                    desc: "代表調和對立能量、追求身心靈中庸、淨化與靈性成長的煉金術。",
+                    astro: "人馬座 / 火元素 🔥",
+                    core: "手持雙杯倒水、融合精神與物質、在流動中尋求和諧、達到心靈的高層次淨化與平衡。",
+                    upright: "身心和諧平衡、跨界融合順暢、極佳的溝通協調力、靈性淨化與自律、追求中庸之道。",
+                    reversed: "能量失衡、過度放縱生活、溝通不良產生摩擦、缺乏自控與整合能力、身心狀態紊亂。"
+                },
+                '15': {
+                    title: "15 惡魔 (The Devil)",
+                    desc: "代表面對內在陰暗面、物質誘惑、執著與自我作繭自縛的成癮挑戰。",
+                    astro: "摩羯座 / 土元素 🌱",
+                    core: "看清人性的底層執著與慾望枷鎖、理解困境往往是自我設限與物質崇拜的幻象。",
+                    upright: "沉溺於感官或物質享樂、面臨強烈誘惑、發現自己身心成癮、被不健康關係束縛、面臨陰暗面。",
+                    reversed: "靈魂徹底覺醒、重獲身心自由、打破綑綁自己的鎖鏈、勇敢直面並整合自己內在陰暗面。"
+                },
+                '16': {
+                    title: "16 高塔 (The Tower)",
+                    desc: "代表瞬間瓦解虛假信念、震撼卻帶來靈魂徹底解放的劇烈變革。",
+                    astro: "火星 / 火元素 🔥",
+                    core: "雷擊虛假神殿、瞬間打破自我粉飾的表面安穩、以最暴烈的方式逼迫靈魂重建真相。",
+                    upright: "突如其來的劇烈衝擊、虛假幻想瞬間崩解、信念顛覆、命運的當頭棒喝、破產或劇變、徹底解放。",
+                    reversed: "躲過一劫或拖延重組、內在世界暗潮洶湧震盪、害怕生活重建而委曲求全、避免重大摩擦。"
+                },
+                '17': {
+                    title: "17 星星 (The Star)",
+                    desc: "代表風暴過後重獲希望、宇宙源源不絕療癒能量與靈感啟發的平靜指引。",
+                    astro: "寶瓶座 / 風元素 💨",
+                    core: "在赤裸的純真中、將自我能量回歸大地、在黑暗的夜空中看見希望北極星的指引。",
+                    upright: "希望之光重現、內心感到無比寧靜、身心得到深度療癒、藝術靈感源源不絕、信念重建。",
+                    reversed: "悲觀絕望失去信念、靈感全面枯竭、對生活充滿不切實際的悲觀幻想、懷才不遇。"
+                },
+                '18': {
+                    title: "18 月亮 (The Moon)",
+                    desc: "代表面對潛意識最深處的恐懼、直覺波動與未知迷霧的迷惘考驗。",
+                    astro: "雙魚座 / 水元素 💧",
+                    core: "在黑暗的沼澤中漫步、穿越不安與幻覺、理解恐懼本身就是潛意識心靈整合的必經通道。",
+                    upright: "迷惘不安、直覺力極強但情緒起伏、秘密可能被揭露、潛意識活動旺盛、看不清前方道路。",
+                    reversed: "迷霧漸漸散去露出真相、恐懼得以釋放與消解、直覺回歸理智控制、走出自我懷疑的陰霾。"
+                },
+                '19': {
+                    title: "19 太陽 (The Sun)",
+                    desc: "代表充滿生命力、無限活力、純真喜悅與耀眼成功的光明神殿。",
+                    astro: "太陽 / 火元素 🔥",
+                    core: "在光明中像孩子般跳舞、內外和諧一致、散發溫暖光芒照亮周遭世界的自信卓越。",
+                    upright: "成功凱旋、幸福滿溢、活力十足、真摯喜悅、事業感情順遂、照亮他人、心想事成。",
+                    reversed: "熱情與活力暫時消退、成功被稍微延誤、自負虛榮、短暫的陰霾遮擋陽光、內在童心受阻。"
+                },
+                '20': {
+                    title: "20 審判 (The Judgement)",
+                    desc: "代表聽從靈魂深處的高頻召喚、重大因果清算與死而復生的重生契機。",
+                    astro: "冥王星 / 火元素 🔥",
+                    core: "吹響天使號角、回顧一生做出重大生命抉擇、洗滌罪業、迎來靈魂的高層次覺醒。",
+                    upright: "靈魂徹底覺醒、獲得重要天啟或召喚、做出改變一生道路的重大決定、因果大清算重獲新生。",
+                    reversed: "抗拒內在靈性召喚、陷入嚴重的自我懷疑、逃避關鍵決定、留戀過去不願前進、錯失重生機遇。"
+                },
+                '21': {
+                    title: "21 世界 (The World)",
+                    desc: "代表一段靈魂旅程的完美圓滿終結、內外和諧一致、與宇宙合一的至高境界。",
+                    astro: "土星 / 土元素 🌱",
+                    core: "在四元素守護圈中優雅起舞、旅行或項目的圓滿成功、實現自我的終極自由與合一。",
+                    upright: "功德圓滿、成功實現目標、整合內外資源、旅行世界或拓展國際視野、與宇宙和諧共處。",
+                    reversed: "不完美或差臨門一腳、抗拒結束、未竟之業需要收尾、雖然接近成功但感到空虛。"
+                }
+            },
             numbers: {
                 '1': {
                     title: "1 號 (Ace)",
@@ -586,63 +793,130 @@
             }
         };
 
-        // Current Application State
         let state = {
-            category: 'numbers', // 'numbers' or 'court'
-            selectedValue: '1',   // Dynamic based on selection
-            viewMode: 'cards'    // 'cards' or 'table'
+            mainCategory: 'major', // 'major' or 'minor'
+            minorCategory: 'numbers', // 'numbers' or 'court'
+            selectedMajor: '0',   // '0' to '21'
+            selectedMinorValue: '1', // '1'-'10' or 'page'-'king'
+            viewMode: 'cards'      // 'cards' or 'table'
         };
 
-        // Initialize App on load
         window.addEventListener('DOMContentLoaded', () => {
             initSelectors();
             renderSelectedData();
             buildFullMatrixTable();
         });
 
-        // Toggle between Numbers and Court
-        function switchCategory(cat) {
-            state.category = cat;
+        // Toggle between Major and Minor Arcana
+        function switchMainCategory(cat) {
+            state.mainCategory = cat;
             
-            // Adjust buttons active state
-            const btnNumbers = document.getElementById('tab-numbers');
-            const btnCourt = document.getElementById('tab-court');
+            const btnMajor = document.getElementById('main-tab-major');
+            const btnMinor = document.getElementById('main-tab-minor');
+            const minorSub = document.getElementById('minor-sub-tabs');
             
-            if (cat === 'numbers') {
-                btnNumbers.className = "px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-mystic-gold/40 bg-mystic-gold/10 text-mystic-gold font-bold shadow-[0_0_15px_rgba(197,160,89,0.15)]";
-                btnCourt.className = "px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700";
+            const selectorMajor = document.getElementById('selector-major');
+            const selectorNumbers = document.getElementById('selector-numbers');
+            const selectorCourt = document.getElementById('selector-court');
+            
+            const tableMajorContainer = document.getElementById('table-major-container');
+            const tableMinorContainer = document.getElementById('table-minor-container');
+
+            if (cat === 'major') {
+                btnMajor.className = "w-full sm:w-auto px-8 py-3.5 rounded-xl font-mystical text-base tracking-wider transition-all duration-300 border border-mystic-gold/40 bg-mystic-gold/15 text-mystic-goldLight font-bold shadow-[0_0_20px_rgba(197,160,89,0.2)]";
+                btnMinor.className = "w-full sm:w-auto px-8 py-3.5 rounded-xl font-mystical text-base tracking-wider transition-all duration-300 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700/50";
                 
-                document.getElementById('selector-numbers').classList.remove('hidden');
-                document.getElementById('selector-court').classList.add('hidden');
-                state.selectedValue = '1';
+                minorSub.classList.add('hidden');
+                selectorMajor.classList.remove('hidden');
+                selectorNumbers.classList.add('hidden');
+                selectorCourt.classList.add('hidden');
+                
+                if (state.viewMode === 'table') {
+                    tableMajorContainer.classList.remove('hidden');
+                    tableMinorContainer.classList.add('hidden');
+                }
             } else {
-                btnCourt.className = "px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-mystic-gold/40 bg-mystic-gold/10 text-mystic-gold font-bold shadow-[0_0_15px_rgba(197,160,89,0.15)]";
-                btnNumbers.className = "px-6 py-3 rounded-xl font-mystical text-sm sm:text-base tracking-wider transition duration-300 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700";
+                btnMinor.className = "w-full sm:w-auto px-8 py-3.5 rounded-xl font-mystical text-base tracking-wider transition-all duration-300 border border-mystic-gold/40 bg-mystic-gold/15 text-mystic-goldLight font-bold shadow-[0_0_20px_rgba(197,160,89,0.2)]";
+                btnMajor.className = "w-full sm:w-auto px-8 py-3.5 rounded-xl font-mystical text-base tracking-wider transition-all duration-300 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700/50";
                 
-                document.getElementById('selector-numbers').classList.add('hidden');
-                document.getElementById('selector-court').classList.remove('hidden');
-                state.selectedValue = 'page';
+                minorSub.classList.remove('hidden');
+                selectorMajor.classList.add('hidden');
+                
+                // Adjust selectors based on active minor category
+                if (state.minorCategory === 'numbers') {
+                    selectorNumbers.classList.remove('hidden');
+                    selectorCourt.classList.add('hidden');
+                } else {
+                    selectorNumbers.classList.add('hidden');
+                    selectorCourt.classList.remove('hidden');
+                }
+                
+                if (state.viewMode === 'table') {
+                    tableMajorContainer.classList.add('hidden');
+                    tableMinorContainer.classList.remove('hidden');
+                }
             }
             
             updateSelectorActives();
             renderSelectedData();
         }
 
-        // Initialize selectors buttons
+        // Toggle between Numbers and Court within Minor Arcana
+        function switchMinorCategory(subCat) {
+            state.minorCategory = subCat;
+            
+            const btnNumbers = document.getElementById('tab-numbers');
+            const btnCourt = document.getElementById('tab-court');
+            const selectorNumbers = document.getElementById('selector-numbers');
+            const selectorCourt = document.getElementById('selector-court');
+            
+            if (subCat === 'numbers') {
+                btnNumbers.className = "px-5 py-2.5 rounded-xl font-mystical text-sm tracking-wider transition-all duration-200 border border-mystic-gold/30 bg-mystic-gold/10 text-mystic-goldLight";
+                btnCourt.className = "px-5 py-2.5 rounded-xl font-mystical text-sm tracking-wider transition-all duration-200 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700/50";
+                selectorNumbers.classList.remove('hidden');
+                selectorCourt.classList.add('hidden');
+                state.selectedMinorValue = '1';
+            } else {
+                btnCourt.className = "px-5 py-2.5 rounded-xl font-mystical text-sm tracking-wider transition-all duration-200 border border-mystic-gold/30 bg-mystic-gold/10 text-mystic-goldLight";
+                btnNumbers.className = "px-5 py-2.5 rounded-xl font-mystical text-sm tracking-wider transition-all duration-200 border border-transparent text-gray-400 hover:text-gray-200 hover:bg-mystic-700/50";
+                selectorNumbers.classList.add('hidden');
+                selectorCourt.classList.remove('hidden');
+                state.selectedMinorValue = 'page';
+            }
+            
+            updateSelectorActives();
+            renderSelectedData();
+        }
+
         function initSelectors() {
-            // Numbers 1-10 Buttons
+            // Major Arcana Selector Buttons (0 to 21)
+            const majorContainer = document.getElementById('selector-major');
+            majorContainer.innerHTML = '';
+            
+            Object.keys(tarotData.major).forEach(key => {
+                const btn = document.createElement('button');
+                btn.id = `btn-major-${key}`;
+                // Show shorthand like "0 愚者", "1 魔術師"
+                const splitName = tarotData.major[key].title.split(' (');
+                btn.innerText = splitName[0]; 
+                btn.onclick = () => selectMajorItem(key);
+                btn.className = "px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 border border-mystic-700 hover:border-pink-500/50";
+                majorContainer.appendChild(btn);
+            });
+
+            // Minor Numbers 1-10 Buttons
             const numContainer = document.getElementById('selector-numbers');
             numContainer.innerHTML = '';
             for (let i = 1; i <= 10; i++) {
                 const btn = document.createElement('button');
                 btn.id = `btn-num-${i}`;
                 btn.innerText = `${i} 號牌`;
-                btn.onclick = () => selectItem(String(i));
+                btn.onclick = () => selectMinorItem(String(i));
                 btn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-mystic-700 hover:border-mystic-gold/50";
                 numContainer.appendChild(btn);
             }
 
-            // Court Buttons
+            // Minor Court Buttons
             const courtContainer = document.getElementById('selector-court');
             courtContainer.innerHTML = '';
             const courtKeys = ['page', 'knight', 'queen', 'king'];
@@ -652,7 +926,7 @@
                 const btn = document.createElement('button');
                 btn.id = `btn-court-${key}`;
                 btn.innerText = courtLabels[key];
-                btn.onclick = () => selectItem(key);
+                btn.onclick = () => selectMinorItem(key);
                 btn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-mystic-700 hover:border-mystic-gold/50";
                 courtContainer.appendChild(btn);
             });
@@ -660,20 +934,36 @@
             updateSelectorActives();
         }
 
-        // Handle item selection
-        function selectItem(val) {
-            state.selectedValue = val;
+        function selectMajorItem(val) {
+            state.selectedMajor = val;
             updateSelectorActives();
             renderSelectedData();
         }
 
-        // Update active class styles for selectors
+        function selectMinorItem(val) {
+            state.selectedMinorValue = val;
+            updateSelectorActives();
+            renderSelectedData();
+        }
+
         function updateSelectorActives() {
-            // Clear all number button active styles
+            // Update Major Arcana buttons
+            Object.keys(tarotData.major).forEach(key => {
+                const btn = document.getElementById(`btn-major-${key}`);
+                if (btn) {
+                    if (state.mainCategory === 'major' && state.selectedMajor === key) {
+                        btn.className = "px-3.5 py-2 rounded-lg text-xs font-bold transition-all duration-200 border border-pink-500 bg-pink-600 text-white shadow-lg shadow-pink-500/20";
+                    } else {
+                        btn.className = "px-3.5 py-2 rounded-lg text-xs font-semibold transition-all duration-200 border border-mystic-700 bg-mystic-900/50 text-gray-300 hover:border-pink-500/50 hover:bg-mystic-800";
+                    }
+                }
+            });
+
+            // Update Minor Numbers buttons
             for (let i = 1; i <= 10; i++) {
                 const btn = document.getElementById(`btn-num-${i}`);
                 if (btn) {
-                    if (state.category === 'numbers' && state.selectedValue === String(i)) {
+                    if (state.mainCategory === 'minor' && state.minorCategory === 'numbers' && state.selectedMinorValue === String(i)) {
                         btn.className = "px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 border border-mystic-gold bg-mystic-gold text-mystic-900 shadow-lg shadow-mystic-gold/10";
                     } else {
                         btn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-mystic-700 bg-mystic-900/50 text-gray-300 hover:border-mystic-gold/50 hover:bg-mystic-800";
@@ -681,12 +971,12 @@
                 }
             }
 
-            // Clear all court button active styles
+            // Update Minor Court buttons
             const courtKeys = ['page', 'knight', 'queen', 'king'];
             courtKeys.forEach(key => {
                 const btn = document.getElementById(`btn-court-${key}`);
                 if (btn) {
-                    if (state.category === 'court' && state.selectedValue === key) {
+                    if (state.mainCategory === 'minor' && state.minorCategory === 'court' && state.selectedMinorValue === key) {
                         btn.className = "px-4 py-2 rounded-lg text-sm font-bold transition-all duration-200 border border-mystic-gold bg-mystic-gold text-mystic-900 shadow-lg shadow-mystic-gold/10";
                     } else {
                         btn.className = "px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 border border-mystic-700 bg-mystic-900/50 text-gray-300 hover:border-mystic-gold/50 hover:bg-mystic-800";
@@ -695,26 +985,110 @@
             });
         }
 
-        // Render card views with updated content
         function renderSelectedData() {
-            const currentItem = tarotData[state.category][state.selectedValue];
-            
-            // Set Banner info
-            document.getElementById('current-badge').innerText = currentItem.title;
-            document.getElementById('current-desc').innerText = currentItem.desc;
+            if (state.mainCategory === 'major') {
+                const currentItem = tarotData.major[state.selectedMajor];
+                
+                // Set Banner Header
+                document.getElementById('current-badge').innerText = `大阿卡納 · ${currentItem.title}`;
+                document.getElementById('current-desc').innerText = currentItem.desc;
 
-            // Render Wands
-            populateCardHTML('card-wands', 'wands', currentItem.wands, 'mystic-wands', '🔥', 'border-mystic-wands/20');
-            // Render Cups
-            populateCardHTML('card-cups', 'cups', currentItem.cups, 'mystic-cups', '💧', 'border-mystic-cups/20');
-            // Render Swords
-            populateCardHTML('card-swords', 'swords', currentItem.swords, 'mystic-swords', '💨', 'border-mystic-swords/20');
-            // Render Pentacles
-            populateCardHTML('card-pentacles', 'pentacles', currentItem.pentacles, 'mystic-pentacles', '🌱', 'border-mystic-pentacles/20');
+                // Toggle visibility
+                document.getElementById('view-major-showcase').classList.remove('hidden');
+                document.getElementById('view-minor-cards').classList.add('hidden');
+                
+                // Build and display Major showcase layout
+                buildMajorShowcase(currentItem);
+            } else {
+                const currentItem = tarotData[state.minorCategory][state.selectedMinorValue];
+                
+                // Set Banner Header
+                document.getElementById('current-badge').innerText = `小阿卡納 · ${currentItem.title}`;
+                document.getElementById('current-desc').innerText = currentItem.desc;
+
+                // Toggle visibility
+                document.getElementById('view-major-showcase').classList.add('hidden');
+                document.getElementById('view-minor-cards').classList.remove('hidden');
+
+                // Render Wands
+                populateCardHTML('card-wands', 'wands', currentItem.wands, '🔥', 'border-mystic-wands/20');
+                // Render Cups
+                populateCardHTML('card-cups', 'cups', currentItem.cups, '💧', 'border-mystic-cups/20');
+                // Render Swords
+                populateCardHTML('card-swords', 'swords', currentItem.swords, '💨', 'border-mystic-swords/20');
+                // Render Pentacles
+                populateCardHTML('card-pentacles', 'pentacles', currentItem.pentacles, '🌱', 'border-mystic-pentacles/20');
+            }
         }
 
-        // Helper to populate individual card blocks
-        function populateCardHTML(elementId, type, cardData, colorClass, icon, borderClass) {
+        function buildMajorShowcase(data) {
+            const container = document.getElementById('view-major-showcase');
+            
+            // Extract pure card number for decorative background
+            const cardNumberStr = data.title.split(' ')[0];
+
+            container.innerHTML = `
+                <div class="tarot-card major-glow bg-mystic-800 border border-pink-500/20 rounded-3xl overflow-hidden shadow-2xl p-6 md:p-8 flex flex-col lg:flex-row gap-8">
+                    <!-- Left: Card Column Decoration -->
+                    <div class="w-full lg:w-1/3 bg-gradient-to-b from-pink-950/20 via-mystic-900 to-mystic-900 border border-mystic-gold/10 rounded-2xl p-6 flex flex-col justify-between items-center text-center relative overflow-hidden min-h-[350px]">
+                        <div class="absolute -right-10 -bottom-10 text-[120px] font-bold font-mystical opacity-5 text-mystic-gold select-none">${cardNumberStr}</div>
+                        
+                        <div class="text-[10px] uppercase tracking-[0.3em] text-pink-400 font-mystical">Spiritual Archetype</div>
+                        
+                        <div class="my-6">
+                            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-pink-600/20 to-mystic-gold/20 flex items-center justify-center border border-mystic-gold/30 shadow-[0_0_20px_rgba(197,160,89,0.1)] mb-4 mx-auto">
+                                <i class="fa-solid fa-wand-magic-sparkles text-3xl text-mystic-goldLight"></i>
+                            </div>
+                            <h3 class="text-3xl font-bold font-mystical text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-mystic-goldLight to-mystic-gold">${data.title}</h3>
+                            <div class="mt-3 inline-block bg-mystic-gold/10 border border-mystic-gold/30 text-mystic-goldLight text-xs px-3 py-1 rounded-full font-mystical">
+                                <i class="fa-solid fa-circle-nodes mr-1"></i> ${data.astro}
+                            </div>
+                        </div>
+
+                        <div class="border-t border-mystic-700/50 pt-4 w-full">
+                            <span class="text-[10px] text-gray-500 tracking-[0.2em] font-mystical">Tarot Matrix Soul Lessons</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Rich Information Details Column -->
+                    <div class="w-full lg:w-2/3 flex flex-col justify-between space-y-6">
+                        <!-- Soul Lesson -->
+                        <div class="bg-mystic-900/55 border border-mystic-gold/20 rounded-2xl p-5 shadow-lg">
+                            <span class="inline-flex items-center text-xs font-bold text-mystic-gold uppercase tracking-wider mb-2">
+                                <i class="fa-solid fa-compass mr-1.5"></i> 核心靈魂功課 (Soul Lesson)
+                            </span>
+                            <p class="text-base sm:text-lg font-medium text-gray-200 leading-relaxed">${data.core}</p>
+                        </div>
+
+                        <!-- Card Meanings Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <!-- Upright -->
+                            <div class="bg-mystic-900/35 border border-pink-500/20 hover:border-pink-500/40 transition rounded-2xl p-5">
+                                <span class="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded bg-pink-950/40 text-pink-300 mb-3 border border-pink-900/50 font-mystical">
+                                    <i class="fa-solid fa-arrow-up-long mr-1.5 text-pink-400"></i> 正位 (Upright)
+                                </span>
+                                <p class="text-sm sm:text-base text-gray-300 leading-relaxed">${data.upright}</p>
+                            </div>
+
+                            <!-- Reversed -->
+                            <div class="bg-mystic-900/35 border border-red-500/20 hover:border-red-500/40 transition rounded-2xl p-5">
+                                <span class="inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded bg-red-950/40 text-red-300 mb-3 border border-red-900/50 font-mystical">
+                                    <i class="fa-solid fa-arrow-down-long mr-1.5 text-red-400"></i> 逆位 (Reversed)
+                                </span>
+                                <p class="text-sm sm:text-base text-gray-300 leading-relaxed">${data.reversed}</p>
+                            </div>
+                        </div>
+
+                        <!-- Spiritual Awakening Tip -->
+                        <div class="text-[11px] text-gray-500 leading-relaxed pt-2 border-t border-mystic-700/60">
+                            <strong>心靈轉化啟示：</strong> 命理與心理學皆指出大阿卡納代表著外部世界投射進我們潛意識的心靈指引。如果此牌處於逆位，代表該原型能量在妳的生命中遭遇阻滯或正面臨修煉功課，請將視角往內收斂。
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function populateCardHTML(elementId, type, cardData, icon, borderClass) {
             const cardElement = document.getElementById(elementId);
             const titleColor = {
                 wands: 'text-mystic-wands',
@@ -765,32 +1139,86 @@
             `;
         }
 
-        // Set View mode: Cards or Table
         function setViewMode(mode) {
             state.viewMode = mode;
             
             const btnCards = document.getElementById('btn-view-cards');
             const btnTable = document.getElementById('btn-view-table');
-            const viewCards = document.getElementById('view-cards');
+            
+            const viewMajorShowcase = document.getElementById('view-major-showcase');
+            const viewMinorCards = document.getElementById('view-minor-cards');
             const viewTable = document.getElementById('view-table');
             
+            const tableMajorContainer = document.getElementById('table-major-container');
+            const tableMinorContainer = document.getElementById('table-minor-container');
+            
+            // Adjust buttons styling
             if (mode === 'cards') {
-                btnCards.className = "px-4 py-1.5 rounded text-xs sm:text-sm transition bg-mystic-gold text-mystic-900 font-semibold shadow";
-                btnTable.className = "px-4 py-1.5 rounded text-xs sm:text-sm transition text-gray-400 hover:text-gray-200";
-                viewCards.classList.remove('hidden');
+                btnCards.className = "flex-1 sm:flex-initial px-5 py-2 rounded text-xs sm:text-sm transition bg-mystic-gold text-mystic-900 font-semibold shadow";
+                btnTable.className = "flex-1 sm:flex-initial px-5 py-2 rounded text-xs sm:text-sm transition text-gray-400 hover:text-gray-200";
+                
                 viewTable.classList.add('hidden');
+                
+                if (state.mainCategory === 'major') {
+                    viewMajorShowcase.classList.remove('hidden');
+                    viewMinorCards.classList.add('hidden');
+                } else {
+                    viewMajorShowcase.classList.add('hidden');
+                    viewMinorCards.classList.remove('hidden');
+                }
             } else {
-                btnTable.className = "px-4 py-1.5 rounded text-xs sm:text-sm transition bg-mystic-gold text-mystic-900 font-semibold shadow";
-                btnCards.className = "px-4 py-1.5 rounded text-xs sm:text-sm transition text-gray-400 hover:text-gray-200";
+                btnTable.className = "flex-1 sm:flex-initial px-5 py-2 rounded text-xs sm:text-sm transition bg-mystic-gold text-mystic-900 font-semibold shadow";
+                btnCards.className = "flex-1 sm:flex-initial px-5 py-2 rounded text-xs sm:text-sm transition text-gray-400 hover:text-gray-200";
+                
                 viewTable.classList.remove('hidden');
-                viewCards.classList.add('hidden');
+                viewMajorShowcase.classList.add('hidden');
+                viewMinorCards.classList.add('hidden');
+                
+                // Show corresponding table
+                if (state.mainCategory === 'major') {
+                    tableMajorContainer.classList.remove('hidden');
+                    tableMinorContainer.classList.add('hidden');
+                } else {
+                    tableMajorContainer.classList.add('hidden');
+                    tableMinorContainer.classList.remove('hidden');
+                }
             }
         }
 
-        // Populate and construct the full comparison table view
         function buildFullMatrixTable() {
-            const tbody = document.getElementById('table-body');
-            tbody.innerHTML = '';
+            // Build Major Arcana Table
+            const majorTbody = document.getElementById('table-major-body');
+            majorTbody.innerHTML = '';
+            
+            Object.keys(tarotData.major).forEach(key => {
+                const item = tarotData.major[key];
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-mystic-700/40 hover:bg-mystic-700/10 transition";
+                tr.innerHTML = `
+                    <td class="p-4 align-top">
+                        <div class="font-mystical font-bold text-pink-400">${item.title}</div>
+                    </td>
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <span class="inline-block bg-mystic-gold/10 border border-mystic-gold/20 text-mystic-goldLight text-xs px-2.5 py-1 rounded-full font-mystical font-semibold">
+                            ${item.astro}
+                        </span>
+                    </td>
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="text-sm font-medium text-gray-200 leading-relaxed">${item.core}</div>
+                    </td>
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="text-xs text-gray-300 leading-relaxed">${item.upright}</div>
+                    </td>
+                    <td class="p-4 border-l border-mystic-700/30 align-top">
+                        <div class="text-xs text-red-300 leading-relaxed">${item.reversed}</div>
+                    </td>
+                `;
+                majorTbody.appendChild(tr);
+            });
+
+            // Build Minor Arcana Table
+            const minorTbody = document.getElementById('table-minor-body');
+            minorTbody.innerHTML = '';
 
             // Section 1: Numbers (1-10)
             const sectionHeaderNum = document.createElement('tr');
@@ -800,7 +1228,7 @@
                     第一階段：數字牌 (ACE - 10 號) 能量演變
                 </td>
             `;
-            tbody.appendChild(sectionHeaderNum);
+            minorTbody.appendChild(sectionHeaderNum);
 
             Object.keys(tarotData.numbers).forEach(numKey => {
                 const item = tarotData.numbers[numKey];
@@ -811,7 +1239,6 @@
                         <div class="font-mystical font-bold text-mystic-gold">${item.title}</div>
                         <div class="text-[11px] text-gray-400 mt-1 font-light leading-snug">${item.desc}</div>
                     </td>
-                    <!-- Wands -->
                     <td class="p-4 border-l border-mystic-700/30 align-top">
                         <div class="font-bold text-mystic-wands text-sm">${item.wands.name}</div>
                         <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.wands.core}</div>
@@ -820,7 +1247,6 @@
                             <strong class="text-red-400">逆：</strong>${item.wands.reversed}
                         </div>
                     </td>
-                    <!-- Cups -->
                     <td class="p-4 border-l border-mystic-700/30 align-top">
                         <div class="font-bold text-mystic-cups text-sm">${item.cups.name}</div>
                         <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.cups.core}</div>
@@ -829,7 +1255,6 @@
                             <strong class="text-red-400">逆：</strong>${item.cups.reversed}
                         </div>
                     </td>
-                    <!-- Swords -->
                     <td class="p-4 border-l border-mystic-700/30 align-top">
                         <div class="font-bold text-mystic-swords text-sm">${item.swords.name}</div>
                         <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.swords.core}</div>
@@ -838,7 +1263,6 @@
                             <strong class="text-red-400">逆：</strong>${item.swords.reversed}
                         </div>
                     </td>
-                    <!-- Pentacles -->
                     <td class="p-4 border-l border-mystic-700/30 align-top">
                         <div class="font-bold text-mystic-pentacles text-sm">${item.pentacles.name}</div>
                         <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.pentacles.core}</div>
@@ -848,7 +1272,7 @@
                         </div>
                     </td>
                 `;
-                tbody.appendChild(tr);
+                minorTbody.appendChild(tr);
             });
 
             // Section 2: Court Cards
@@ -859,7 +1283,7 @@
                     第二階段：宮廷人物牌 (PAGE - KING) 人際心智
                 </td>
             `;
-            tbody.appendChild(sectionHeaderCourt);
+            minorTbody.appendChild(sectionHeaderCourt);
 
             Object.keys(tarotData.court).forEach(courtKey => {
                 const item = tarotData.court[courtKey];
@@ -870,7 +1294,6 @@
                         <div class="font-mystical font-bold text-mystic-gold">${item.title}</div>
                         <div class="text-[11px] text-gray-400 mt-1 font-light leading-snug">${item.desc}</div>
                     </td>
-                    <!-- Wands -->
                     <td class="p-4 border-l border-mystic-700/30 align-top">
                         <div class="font-bold text-mystic-wands text-sm">${item.wands.name}</div>
                         <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.wands.core}</div>
@@ -879,7 +1302,6 @@
                             <strong class="text-red-400">逆：</strong>${item.wands.reversed}
                         </div>
                     </td>
-                    <!-- Cups -->
                     <td class="p-4 border-l border-mystic-700/30 align-top">
                         <div class="font-bold text-mystic-cups text-sm">${item.cups.name}</div>
                         <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.cups.core}</div>
@@ -888,7 +1310,6 @@
                             <strong class="text-red-400">逆：</strong>${item.cups.reversed}
                         </div>
                     </td>
-                    <!-- Swords -->
                     <td class="p-4 border-l border-mystic-700/30 align-top">
                         <div class="font-bold text-mystic-swords text-sm">${item.swords.name}</div>
                         <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.swords.core}</div>
@@ -897,7 +1318,6 @@
                             <strong class="text-red-400">逆：</strong>${item.swords.reversed}
                         </div>
                     </td>
-                    <!-- Pentacles -->
                     <td class="p-4 border-l border-mystic-700/30 align-top">
                         <div class="font-bold text-mystic-pentacles text-sm">${item.pentacles.name}</div>
                         <div class="text-[11px] text-mystic-goldLight mt-1 font-medium bg-mystic-gold/5 py-1 px-1.5 rounded">${item.pentacles.core}</div>
@@ -907,7 +1327,7 @@
                         </div>
                     </td>
                 `;
-                tbody.appendChild(tr);
+                minorTbody.appendChild(tr);
             });
         }
     </script>
